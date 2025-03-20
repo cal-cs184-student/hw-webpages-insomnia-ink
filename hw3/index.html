@@ -1,106 +1,686 @@
-<html>
-	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-		<style>
-			h1 {
-				text-align: center;
-			}
-
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
-
-			figure {
-				text-align: center;
-			}
-
-			img {
-				display: inline-block;
-			}
-
-			body {
-				font-family: 'Inter', sans-serif;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-		<h1>CS184/284A Spring 2025 Homework 3 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
-
-		<br>
-
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS184 Spring 2024 Homework 3 Writeup</title><style>
+	/* cspell:disable-file */
+	/* webkit printing magic: print all background colors */
+	html {
+		-webkit-print-color-adjust: exact;
+	}
+	* {
+		box-sizing: border-box;
+		-webkit-print-color-adjust: exact;
+	}
+	
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	@media only screen {
+		body {
+			margin: 2em auto;
+			max-width: 900px;
+			color: rgb(55, 53, 47);
+		}
+	}
+	
+	body {
+		line-height: 1.5;
+		white-space: pre-wrap;
+	}
+	
+	a,
+	a.visited {
+		color: inherit;
+		text-decoration: underline;
+	}
+	
+	.pdf-relative-link-path {
+		font-size: 80%;
+		color: #444;
+	}
+	
+	h1,
+	h2,
+	h3 {
+		letter-spacing: -0.01em;
+		line-height: 1.2;
+		font-weight: 600;
+		margin-bottom: 0;
+	}
+	
+	.page-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-top: 0;
+		margin-bottom: 0.75em;
+	}
+	
+	h1 {
+		font-size: 1.875rem;
+		margin-top: 1.875rem;
+	}
+	
+	h2 {
+		font-size: 1.5rem;
+		margin-top: 1.5rem;
+	}
+	
+	h3 {
+		font-size: 1.25rem;
+		margin-top: 1.25rem;
+	}
+	
+	.source {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		padding: 1.5em;
+		word-break: break-all;
+	}
+	
+	.callout {
+		border-radius: 3px;
+		padding: 1rem;
+	}
+	
+	figure {
+		margin: 1.25em 0;
+		page-break-inside: avoid;
+	}
+	
+	figcaption {
+		opacity: 0.5;
+		font-size: 85%;
+		margin-top: 0.5em;
+	}
+	
+	mark {
+		background-color: transparent;
+	}
+	
+	.indented {
+		padding-left: 1.5em;
+	}
+	
+	hr {
+		background: transparent;
+		display: block;
+		width: 100%;
+		height: 1px;
+		visibility: visible;
+		border: none;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+	}
+	
+	img {
+		max-width: 100%;
+	}
+	
+	@media only print {
+		img {
+			max-height: 100vh;
+			object-fit: contain;
+		}
+	}
+	
+	@page {
+		margin: 1in;
+	}
+	
+	.collection-content {
+		font-size: 0.875rem;
+	}
+	
+	.column-list {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.column {
+		padding: 0 1em;
+	}
+	
+	.column:first-child {
+		padding-left: 0;
+	}
+	
+	.column:last-child {
+		padding-right: 0;
+	}
+	
+	.table_of_contents-item {
+		display: block;
+		font-size: 0.875rem;
+		line-height: 1.3;
+		padding: 0.125rem;
+	}
+	
+	.table_of_contents-indent-1 {
+		margin-left: 1.5rem;
+	}
+	
+	.table_of_contents-indent-2 {
+		margin-left: 3rem;
+	}
+	
+	.table_of_contents-indent-3 {
+		margin-left: 4.5rem;
+	}
+	
+	.table_of_contents-link {
+		text-decoration: none;
+		opacity: 0.7;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+	}
+	
+	table,
+	th,
+	td {
+		border: 1px solid rgba(55, 53, 47, 0.09);
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-left: none;
+		border-right: none;
+	}
+	
+	th,
+	td {
+		font-weight: normal;
+		padding: 0.25em 0.5em;
+		line-height: 1.5;
+		min-height: 1.5em;
+		text-align: left;
+	}
+	
+	th {
+		color: rgba(55, 53, 47, 0.6);
+	}
+	
+	ol,
+	ul {
+		margin: 0;
+		margin-block-start: 0.6em;
+		margin-block-end: 0.6em;
+	}
+	
+	li > ol:first-child,
+	li > ul:first-child {
+		margin-block-start: 0.6em;
+	}
+	
+	ul > li {
+		list-style: disc;
+	}
+	
+	ul.to-do-list {
+		padding-inline-start: 0;
+	}
+	
+	ul.to-do-list > li {
+		list-style: none;
+	}
+	
+	.to-do-children-checked {
+		text-decoration: line-through;
+		opacity: 0.375;
+	}
+	
+	ul.toggle > li {
+		list-style: none;
+	}
+	
+	ul {
+		padding-inline-start: 1.7em;
+	}
+	
+	ul > li {
+		padding-left: 0.1em;
+	}
+	
+	ol {
+		padding-inline-start: 1.6em;
+	}
+	
+	ol > li {
+		padding-left: 0.2em;
+	}
+	
+	.mono ol {
+		padding-inline-start: 2em;
+	}
+	
+	.mono ol > li {
+		text-indent: -0.4em;
+	}
+	
+	.toggle {
+		padding-inline-start: 0em;
+		list-style-type: none;
+	}
+	
+	/* Indent toggle children */
+	.toggle > li > details {
+		padding-left: 1.7em;
+	}
+	
+	.toggle > li > details > summary {
+		margin-left: -1.1em;
+	}
+	
+	.selected-value {
+		display: inline-block;
+		padding: 0 0.5em;
+		background: rgba(206, 205, 202, 0.5);
+		border-radius: 3px;
+		margin-right: 0.5em;
+		margin-top: 0.3em;
+		margin-bottom: 0.3em;
+		white-space: nowrap;
+	}
+	
+	.collection-title {
+		display: inline-block;
+		margin-right: 1em;
+	}
+	
+	.page-description {
+		margin-bottom: 2em;
+	}
+	
+	.simple-table {
+		margin-top: 1em;
+		font-size: 0.875rem;
+		empty-cells: show;
+	}
+	.simple-table td {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table th {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table-header-color {
+		background: rgb(247, 246, 243);
+		color: black;
+	}
+	.simple-table-header {
+		font-weight: 500;
+	}
+	
+	time {
+		opacity: 0.5;
+	}
+	
+	.icon {
+		display: inline-block;
+		max-width: 1.2em;
+		max-height: 1.2em;
+		text-decoration: none;
+		vertical-align: text-bottom;
+		margin-right: 0.5em;
+	}
+	
+	img.icon {
+		border-radius: 3px;
+	}
+	
+	.user-icon {
+		width: 1.5em;
+		height: 1.5em;
+		border-radius: 100%;
+		margin-right: 0.5rem;
+	}
+	
+	.user-icon-inner {
+		font-size: 0.8em;
+	}
+	
+	.text-icon {
+		border: 1px solid #000;
+		text-align: center;
+	}
+	
+	.page-cover-image {
+		display: block;
+		object-fit: cover;
+		width: 100%;
+		max-height: 30vh;
+	}
+	
+	.page-header-icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+	
+	.page-header-icon-with-cover {
+		margin-top: -0.72em;
+		margin-left: 0.07em;
+	}
+	
+	.page-header-icon img {
+		border-radius: 3px;
+	}
+	
+	.link-to-page {
+		margin: 1em 0;
+		padding: 0;
+		border: none;
+		font-weight: 500;
+	}
+	
+	p > .user {
+		opacity: 0.5;
+	}
+	
+	td > .user,
+	td > time {
+		white-space: nowrap;
+	}
+	
+	input[type="checkbox"] {
+		transform: scale(1.5);
+		margin-right: 0.6em;
+		vertical-align: middle;
+	}
+	
+	p {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+	}
+	
+	.image {
+		border: none;
+		margin: 1.5em 0;
+		padding: 0;
+		border-radius: 0;
+		text-align: center;
+	}
+	
+	.code,
+	code {
+		background: rgba(135, 131, 120, 0.15);
+		border-radius: 3px;
+		padding: 0.2em 0.4em;
+		border-radius: 3px;
+		font-size: 85%;
+		tab-size: 2;
+	}
+	
+	code {
+		color: #eb5757;
+	}
+	
+	.code {
+		padding: 1.5em 1em;
+	}
+	
+	.code-wrap {
+		white-space: pre-wrap;
+		word-break: break-all;
+	}
+	
+	.code > code {
+		background: none;
+		padding: 0;
+		font-size: 100%;
+		color: inherit;
+	}
+	
+	blockquote {
+		font-size: 1.25em;
+		margin: 1em 0;
+		padding-left: 1em;
+		border-left: 3px solid rgb(55, 53, 47);
+	}
+	
+	.bookmark {
+		text-decoration: none;
+		max-height: 8em;
+		padding: 0;
+		display: flex;
+		width: 100%;
+		align-items: stretch;
+	}
+	
+	.bookmark-title {
+		font-size: 0.85em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 1.75em;
+		white-space: nowrap;
+	}
+	
+	.bookmark-text {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.bookmark-info {
+		flex: 4 1 180px;
+		padding: 12px 14px 14px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.bookmark-image {
+		width: 33%;
+		flex: 1 1 180px;
+		display: block;
+		position: relative;
+		object-fit: cover;
+		border-radius: 1px;
+	}
+	
+	.bookmark-description {
+		color: rgba(55, 53, 47, 0.6);
+		font-size: 0.75em;
+		overflow: hidden;
+		max-height: 4.5em;
+		word-break: break-word;
+	}
+	
+	.bookmark-href {
+		font-size: 0.75em;
+		margin-top: 0.25em;
+	}
+	
+	.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+	.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+	.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+	.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+	.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+	.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+	.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+	.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+	.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+	.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+	.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+	.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+	.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.highlight-default {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.highlight-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.highlight-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.highlight-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.highlight-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.highlight-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.highlight-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.highlight-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.highlight-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.highlight-default_background {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.highlight-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.highlight-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.highlight-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.highlight-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.highlight-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.highlight-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.highlight-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.highlight-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.block-color-default {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.block-color-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.block-color-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.block-color-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.block-color-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.block-color-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.block-color-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.block-color-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.block-color-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.block-color-default_background {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.block-color-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.block-color-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.block-color-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.block-color-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.block-color-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.block-color-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.block-color-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.block-color-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.select-value-color-uiBlue { background-color: undefined; }
+	.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+	.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+	.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+	.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+	.select-value-color-transparentGray { background-color: undefined; }
+	.select-value-color-translucentGray { background-color: undefined; }
+	.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+	.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+	.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+	.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+	.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+	.select-value-color-pageGlass { background-color: undefined; }
+	.select-value-color-washGlass { background-color: undefined; }
+	
+	.checkbox {
+		display: inline-flex;
+		vertical-align: text-bottom;
+		width: 16;
+		height: 16;
+		background-size: 16px;
+		margin-left: 2px;
+		margin-right: 5px;
+	}
+	
+	.checkbox-on {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
+	
+	.checkbox-off {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
 		
-		<figure>
-			<img src="cornell.png" alt="Cornell Boxes with Bunnies" style="width:70%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
-
-		<!--
-		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
-
-		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
-		<h2>Part 1: Ray Generation and Scene Intersection</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
-		
-		<h2>Part 2: Bounding Volume Hierarchy</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 3: Direct Illumination</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 4: Global Illumination</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 5: Adaptive Sampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Part 6: Extra Credit Opportunities</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
-		</div>
-	</body>
-</html>
+	</style></head><body><article id="1b80c3c3-e20a-8026-bec2-e8b8b7a82612" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1692049065982-fc40fa2d4403?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 0%"/><h1 class="page-title">CS184 Spring 2024 Homework 3 Writeup</h1><p class="page-description"></p></header><div class="page-body"><blockquote id="1bb0c3c3-e20a-80a2-a20c-ce5119f7cd25" class="">Names: Sampurn Bhowmick</blockquote><p id="1bb0c3c3-e20a-802f-8460-e743260fe6f0" class="">Link to webpage:<a href="https://cal-cs184-student.github.io/hw-webpages-insomnia-ink/"> https://cal-cs184-student.github.io/hw-webpages-insomnia-ink/</a></p><p id="1bb0c3c3-e20a-80a0-a4a1-c39b7b951701" class="">Link to GitHub repository: <a href="https://github.com/cal-cs184-student/sp25-hw3-astral-express">https://github.com/cal-cs184-student/sp25-hw3-astral-express</a></p><h3 id="1b80c3c3-e20a-80c1-8ce2-d9718f9e7606" class="">Overview</h3><p id="1bb0c3c3-e20a-8047-b26e-d8c5fe4da741" class="">In this homework, I implemented a path tracer to simulate realistic lighting by tracing light rays and modeling their interactions with surfaces. This involved handling direct and indirect illumination, global illumination with multiple bounces, Russian Roulette termination for efficiency, and adaptive sampling to optimize rendering quality. Through this project, I gained a deeper understanding of how light behaves in a scene and how different sampling techniques impact both accuracy and performance. </p><p id="1bb0c3c3-e20a-80ec-be22-c41543e1d373" class="">Seeing the difference between direct and global illumination was particularly interesting, as indirect lighting added realism through effects like soft shadows and color bleeding. Adaptive sampling also highlighted how some areas of an image require more computation than others, improving efficiency without sacrificing quality as it dynamically adjusts sample counts to reduce noise efficiently. Overall, this project provided a strong foundation in physically-based rendering and efficient sampling techniques.</p><h2 id="1b80c3c3-e20a-8088-ae03-c65c303a8e88" class="">Part 1: <strong>Ray Generation and Primitive Intersection</strong></h2><h3 id="1b90c3c3-e20a-804d-8ed5-e4daf45fe752" class=""><strong>Ray Generation</strong></h3><p id="1b90c3c3-e20a-8066-adba-f2457b7d0286" class="">In a ray tracer, rendering starts by casting rays from the <strong>camera</strong> into the <strong>scene</strong>. Each pixel in the image corresponds to a unique ray, which we generate based on the camera&#x27;s <strong>field of view (FOV)</strong> and the scene&#x27;s <strong>camera-to-world transformation</strong>.</p><p id="1b90c3c3-e20a-8055-9204-e1fe4073dca3" class="">The key steps in ray generation are:</p><ol type="1" id="1b90c3c3-e20a-806b-a380-ea610db86a1f" class="numbered-list" start="1"><li>Convert the <strong>pixel coordinates</strong> to <strong>normalized sensor coordinates</strong> within the range .<p id="1b90c3c3-e20a-8044-82a9-e2e20a7492b9" class="">[−1,1][-1, 1]</p></li></ol><ol type="1" id="1b90c3c3-e20a-80ec-8927-f6eedc48202f" class="numbered-list" start="2"><li>Compute the corresponding <strong>point on the sensor plane</strong> using the <strong>FOV</strong>.</li></ol><ol type="1" id="1b90c3c3-e20a-80e4-b642-e6b5cb547b2a" class="numbered-list" start="3"><li>Transform this point into <strong>world space</strong> using the <strong>camera-to-world (c2w) transformation matrix</strong>.</li></ol><ol type="1" id="1b90c3c3-e20a-801e-948d-c82c371b3651" class="numbered-list" start="4"><li>Normalize the ray direction.</li></ol><ol type="1" id="1b90c3c3-e20a-80d7-aedd-dbc6646b6c55" class="numbered-list" start="5"><li>Create a <strong>ray</strong> with an origin at the <strong>camera position</strong> and a direction pointing toward the computed world-space point.</li></ol><p id="1b90c3c3-e20a-806b-ad1b-cbce7ddb1c59" class="">The result is that every pixel on the screen corresponds to a unique ray, which we later use to check for intersections with objects in the scene. This ensures that the generated rays correctly simulate how light enters the camera. </p><h3 id="1b90c3c3-e20a-80a8-b721-f3f8cd84a370" class=""><strong>Primitive Intersection</strong></h3><p id="1b90c3c3-e20a-80ba-9eb8-d14b7c79bcd2" class="">Once a ray is generated, we check for intersections with <strong>scene primitives</strong>. The two main types of primitives we handle in this part are:</p><ol type="1" id="1b90c3c3-e20a-808f-9764-f9ba39aeb2dd" class="numbered-list" start="1"><li><strong>Triangles</strong></li></ol><ol type="1" id="1b90c3c3-e20a-80b5-bd70-ffe54b7f2167" class="numbered-list" start="2"><li><strong>Spheres</strong></li></ol><p id="1b90c3c3-e20a-808c-b651-f190f4953d8b" class="">Each intersection test:</p><ul id="1b90c3c3-e20a-8029-ba8b-f42e5cdff2a5" class="bulleted-list"><li style="list-style-type:disc">Solves a mathematical equation to check if and where the ray intersects the shape.</li></ul><ul id="1b90c3c3-e20a-80cf-9b59-df81239792ca" class="bulleted-list"><li style="list-style-type:disc">Ensures the intersection lies within the ray&#x27;s range <strong>[min_t, max_t]</strong>.</li></ul><ul id="1b90c3c3-e20a-8016-b163-f30fad9ffa7e" class="bulleted-list"><li style="list-style-type:disc">Updates <strong>max_t</strong> so that closer intersections take priority.</li></ul><h3 id="1b90c3c3-e20a-80e4-acee-cdbb78773aee" class=""><strong>Triangle Intersection Algorithm</strong></h3><p id="1b90c3c3-e20a-8022-a263-f7e59b20dc3e" class="">For triangles, I used the <strong>Möller-Trumbore Algorithm</strong>, which is an efficient way to check if a ray hits a triangle.</p><figure id="1b90c3c3-e20a-808a-8789-f5465c043f68" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/image.png"><img style="width:336px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/image.png"/></a><figcaption>math for ray-triangle intersection</figcaption></figure><p id="1b90c3c3-e20a-80ad-8e87-e9c73cf3897f" class="">Here’s how the algorithm works:</p><ol type="1" id="1b90c3c3-e20a-8069-8463-e745d377d0c5" class="numbered-list" start="1"><li><strong>Define the Triangle - </strong>A triangle is defined by three corner points, or vertices. Any point inside the triangle can be represented using a combination of these three points.</li></ol><ol type="1" id="1b90c3c3-e20a-8057-a4dd-c77dabb5d498" class="numbered-list" start="2"><li><strong>Define the Ray - </strong>The ray starts from an origin point (the camera position) and moves in a particular direction. The goal is to find out if this ray crosses the triangle.</li></ol><ol type="1" id="1b90c3c3-e20a-80db-9f21-e33893df92f8" class="numbered-list" start="3"><li><strong>Calculate Triangle Edges - </strong>To determine where the ray might hit the triangle, we calculate two edges of the triangle. These edges help define the plane that the triangle lies on.</li></ol><ol type="1" id="1b90c3c3-e20a-802d-b57b-c6b47b3b2f26" class="numbered-list" start="4"><li><strong>Use Cross Products to Solve for Intersection - </strong>By using vector operations, I check if the ray actually hits the plane that the triangle lies on. Then, we determine if the intersection point is inside the triangle or outside of it.</li></ol><ol type="1" id="1b90c3c3-e20a-80f0-ba00-ce506b2cf3e3" class="numbered-list" start="5"><li><strong>Check if the Intersection is Valid - </strong>If the intersection point falls outside the triangle, the ray does not hit it. If the intersection happens behind the camera, it is ignored. If the intersection is in front of the camera and within the allowed range, we <strong>record it as a valid intersection</strong>.</li></ol><p id="1b90c3c3-e20a-8047-8031-c4a64a5bf176" class="">By following these steps, we can efficiently determine whether a ray hits a triangle.</p><h2 id="1b90c3c3-e20a-8023-9360-dc8ae73e08d1" class=""><strong>Sphere Intersection</strong></h2><p id="1b90c3c3-e20a-80b7-ac50-ddebf3408e0f" class="">For spheres, the approach is different because a sphere is a curved object. The process works like this:</p><ol type="1" id="1b90c3c3-e20a-8000-995b-e114e6dd84dc" class="numbered-list" start="1"><li><strong>Define the Sphere - </strong>A sphere is defined by its center and its radius.</li></ol><ol type="1" id="1b90c3c3-e20a-8038-872b-ea56daa53b10" class="numbered-list" start="2"><li><strong>Check if the Ray Hits the Sphere - </strong>Since a ray moves in a straight line, we need to determine if it gets close enough to the sphere’s center to touch it.</li></ol><ol type="1" id="1b90c3c3-e20a-8085-b107-d5d9fc8c8b3b" class="numbered-list" start="3"><li><strong>Use the Quadratic Formula to Solve for Intersection - </strong>If the ray is too far away, it does not hit the sphere. If the ray passes through the sphere, we calculate two points where it enters and exits the sphere. Choose the closest valid intersection point.</li></ol><ol type="1" id="1b90c3c3-e20a-8033-921a-c2e957f85b5b" class="numbered-list" start="4"><li><strong>Update the Ray with the Closest Intersection - </strong>Just like with triangles, we only keep the closest valid intersection to ensure accurate rendering.</li></ol><p id="1b90c3c3-e20a-80ee-93c7-c74448cb8d2f" class=""><em><strong>Images</strong></em></p><figure id="1b90c3c3-e20a-804d-920c-d2a11b562a29" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/5d676747-7cd9-47d3-9a47-df830c3af38b.png"><img style="width:432px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/5d676747-7cd9-47d3-9a47-df830c3af38b.png"/></a></figure><div id="1b90c3c3-e20a-804b-92d6-e1e75d2b75ae" class="column-list"><div id="1b90c3c3-e20a-8052-87a6-fef8cda535bf" style="width:50%" class="column"><figure id="1b90c3c3-e20a-802a-ae57-df81ad055424" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/fb1ad4d9-6bef-419c-bfca-3b32f945417c.png"><img style="width:389.81084489281204px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/fb1ad4d9-6bef-419c-bfca-3b32f945417c.png"/></a></figure></div><div id="1b90c3c3-e20a-80e7-b700-dce1e472c3b8" style="width:50%" class="column"><figure id="1b90c3c3-e20a-80bd-8abc-dbf75fc91a67" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/703cf0d9-e0ae-4e0c-8391-cc1e5bb1ad25.png"><img style="width:383.35570469798654px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/703cf0d9-e0ae-4e0c-8391-cc1e5bb1ad25.png"/></a></figure></div></div><p id="1b90c3c3-e20a-800f-9692-cb912952375e" class=""><strong>Summary</strong></p><ul id="1b90c3c3-e20a-8091-9ceb-d894bbddc295" class="bulleted-list"><li style="list-style-type:disc"><strong>Ray Generation</strong>: Transforms pixels into world-space rays.</li></ul><ul id="1b90c3c3-e20a-804d-af7c-dd2e0fb8e3cb" class="bulleted-list"><li style="list-style-type:disc"><strong>Triangle Intersection</strong>: Uses the <strong>Möller-Trumbore Algorithm</strong> to solve for ray-triangle intersection.</li></ul><ul id="1b90c3c3-e20a-8019-b9f1-d3b8fce90e52" class="bulleted-list"><li style="list-style-type:disc"><strong>Sphere Intersection</strong>: Uses the <strong>quadratic formula</strong> to find valid intersections.</li></ul><ul id="1b90c3c3-e20a-8075-ab94-e3280ccc89f1" class="bulleted-list"><li style="list-style-type:disc"><strong>Rendering Output</strong>: Showcases correct normal shading with valid intersections.</li></ul><p id="1b90c3c3-e20a-803e-9fd6-eb8170097ff5" class="">This ensures that the path tracer correctly handles basic primitive intersections, forming the foundation for more complex rendering!</p><h2 id="1b80c3c3-e20a-80a7-93e9-edee74d53407" class="">Part 2: <strong>Bounding Volume Hierarchy (BVH)</strong></h2><h3 id="1b90c3c3-e20a-8086-ab6c-ee25adea1ff6" class=""><strong>BVH Construction Algorithm</strong></h3><p id="1b90c3c3-e20a-8015-97af-fde162843756" class="">To efficiently accelerate ray-scene intersections, we implemented a <strong>Bounding Volume Hierarchy (BVH)</strong>. A BVH is a binary tree where each node represents a <strong>bounding box</strong> that contains a subset of scene primitives (triangles, spheres, etc.). This allows us to <strong>quickly eliminate large portions of the scene</strong> that do not intersect a given ray, significantly improving rendering performance.</p><p id="1b90c3c3-e20a-80d4-96ea-c7d7adf9698e" class="">The <strong>BVH construction</strong> follows a <strong>recursive approach</strong>:</p><ol type="1" id="1b90c3c3-e20a-808f-b950-c8c1260e30a2" class="numbered-list" start="1"><li>Compute the <strong>bounding box</strong> that encloses all primitives in the given list.</li></ol><ol type="1" id="1b90c3c3-e20a-805f-a014-ed2ef8dad49e" class="numbered-list" start="2"><li>If the number of primitives is <strong>less than or equal to </strong><code><strong>max_leaf_size</strong></code>, create a <strong>leaf node</strong> containing those primitives.</li></ol><ol type="1" id="1b90c3c3-e20a-805e-b45e-d7e1a0fdda84" class="numbered-list" start="3"><li>Otherwise:<ul id="1b90c3c3-e20a-8023-96e5-dac5d9da04bb" class="bulleted-list"><li style="list-style-type:disc">Choose an <strong>axis to split</strong> the primitives.</li></ul><ul id="1b90c3c3-e20a-8066-9f4a-e41bbab03b56" class="bulleted-list"><li style="list-style-type:disc">Compute a <strong>split point</strong> using a heuristic.</li></ul><ul id="1b90c3c3-e20a-80d2-8a66-c8e0f45c0e8f" class="bulleted-list"><li style="list-style-type:disc">Partition the primitives into <strong>left and right</strong> subsets based on their <strong>centroids</strong>.</li></ul><ul id="1b90c3c3-e20a-80e6-a166-c430d67a6eb7" class="bulleted-list"><li style="list-style-type:disc">Recursively build <strong>left and right child nodes</strong> using these subsets.</li></ul></li></ol><p id="1b90c3c3-e20a-80c4-b644-e05a38f58e5f" class="">At each step, we aim to <strong>minimize overlap</strong> between bounding boxes, as excessive overlap reduces efficiency.</p><h3 id="1b90c3c3-e20a-8057-909c-f0a41ff71f84" class=""><strong>Heuristic for Picking the Splitting Point</strong></h3><p id="1b90c3c3-e20a-8079-9726-f2aa636b028e" class="">The efficiency of BVH traversal depends heavily on <strong>how we split the primitives</strong> at each step. We used the following heuristic:</p><ul id="1b90c3c3-e20a-80f9-af98-c01d3a3d2046" class="bulleted-list"><li style="list-style-type:disc"><strong>Split along the largest axis</strong>: We first compute the <strong>extent (size)</strong> of the bounding box along each axis (X, Y, Z). The <strong>longest axis</strong> is chosen as the splitting axis.</li></ul><ul id="1b90c3c3-e20a-80ff-a375-c05c375b71d7" class="bulleted-list"><li style="list-style-type:disc"><strong>Use the centroid midpoint</strong>: We compute the <strong>average of all primitive centroids</strong> along the chosen axis and use it as the <strong>split point</strong>.</li></ul><ul id="1b90c3c3-e20a-807c-b511-f0cbcd3842ab" class="bulleted-list"><li style="list-style-type:disc"><strong>Partition primitives based on their centroids</strong>: Primitives whose centroid is <strong>less than</strong> the split point go to the <strong>left</strong>, while the rest go to the <strong>right</strong>.</li></ul><p id="1b90c3c3-e20a-808a-9c1f-fb90f4112c59" class="">This heuristic works well because:</p><ol type="1" id="1b90c3c3-e20a-80ba-a3a9-e76f0622016b" class="numbered-list" start="1"><li><strong>Minimizing overlap</strong> between child nodes reduces the number of unnecessary ray intersections.</li></ol><ol type="1" id="1b90c3c3-e20a-80ec-a98a-e28e1d5902cd" class="numbered-list" start="2"><li><strong>Balancing the BVH</strong> ensures that traversal depth is <strong>logarithmic</strong>, improving performance.</li></ol><ol type="1" id="1b90c3c3-e20a-809a-83de-eefe838ce8de" class="numbered-list" start="3"><li><strong>Using centroids</strong> avoids degenerate cases where a split leaves one side empty, preventing infinite recursion.</li></ol><p id="1b90c3c3-e20a-80de-81c7-eb622dc4e134" class=""><em><strong>Images</strong></em></p><div id="1b90c3c3-e20a-80f8-bad2-d30fe9c881cd" class="column-list"><div id="1b90c3c3-e20a-80e0-8fb6-d8446f56e246" style="width:50.000000000000014%" class="column"><figure id="1b90c3c3-e20a-80c9-a4e0-d084db1d1bc5" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/002a4119-cbef-42c8-be96-4a889a40e803.png"><img style="width:379.8533007334963px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/002a4119-cbef-42c8-be96-4a889a40e803.png"/></a></figure></div><div id="1b90c3c3-e20a-80d9-9f13-cd2609123db6" style="width:50%" class="column"><figure id="1b90c3c3-e20a-8045-9087-ea038f83dc97" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/3075adb1-1bf1-483a-baab-0884d5e281e0.png"><img style="width:382.8571428571429px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/3075adb1-1bf1-483a-baab-0884d5e281e0.png"/></a></figure></div></div><div id="1b90c3c3-e20a-809b-a0e6-c6b2eab976d3" class="column-list"><div id="1b90c3c3-e20a-8034-9423-ea2d5c563503" style="width:50%" class="column"><figure id="1b90c3c3-e20a-802f-91b1-e77562ca7f0b" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/maxplanck_screenshot_3-17_7-22-51.png"><img style="width:709.9857788085938px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/maxplanck_screenshot_3-17_7-22-51.png"/></a></figure></div><div id="1b90c3c3-e20a-800a-8c3d-dd48bcc83738" style="width:50%" class="column"><figure id="1b90c3c3-e20a-8067-9537-d4feaf7fae2c" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/171b35cf-ad0c-419f-8fcc-6ebdec184f95.png"><img style="width:332.1662245800177px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/171b35cf-ad0c-419f-8fcc-6ebdec184f95.png"/></a></figure></div></div><figure id="1b90c3c3-e20a-80a8-b15d-d01a8801d570" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/image%201.png"><img style="width:384px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/image%201.png"/></a></figure><h3 id="1b90c3c3-e20a-806c-a5ae-f8bebbf60e86" class=""><strong>Rendering Performance with and without BVH</strong></h3><p id="1b90c3c3-e20a-8071-bf67-c1f93ba79617" class="">To demonstrate the performance improvements from BVH acceleration, I rendered several large <code>.dae</code> files and compared rendering times.</p><table id="1b90c3c3-e20a-807f-91e3-e6c8a9314317" class="simple-table"><tbody><tr id="1b90c3c3-e20a-80dc-a7d1-f54d44d1272a"><td id="m_PO" class="">Scene</td><td id="N@YZ" class="">Without BVH (seconds)</td><td id="xRJo" class="">With BVH (seconds)</td><td id="LAwB" class="">Speedup Factor</td><td id="{gif" class="">Primitives</td></tr><tr id="1b90c3c3-e20a-80e2-b4c3-ebd4c6f45c8a"><td id="m_PO" class="">teapot.dae</td><td id="N@YZ" class="">182</td><td id="xRJo" class="">1.8</td><td id="LAwB" class="">~100x faster</td><td id="{gif" class="">2464 </td></tr><tr id="1b90c3c3-e20a-804c-935d-e8a8226f4a62"><td id="m_PO" class="">cow.dae</td><td id="N@YZ" class="">431</td><td id="xRJo" class="">4.6</td><td id="LAwB" class="">~100x faster</td><td id="{gif" class="">5856</td></tr><tr id="1b90c3c3-e20a-802d-89fd-f0128574c03a"><td id="m_PO" class="">CBbunny.dae</td><td id="N@YZ" class="">1621 </td><td id="xRJo" class="">5.1 </td><td id="LAwB" class="">~300x faster</td><td id="{gif" class="">28588</td></tr><tr id="1b90c3c3-e20a-8077-b4d7-d2204ea26a4f"><td id="m_PO" class="">CBlucy.dae</td><td id="N@YZ" class="">5466</td><td id="xRJo" class="">6</td><td id="LAwB" class="">~900x faster</td><td id="{gif" class="">105120</td></tr></tbody></table><p id="1b90c3c3-e20a-80f5-a741-fec26f71f758" class="">BVH acceleration dramatically reduces rendering times from hours to seconds, making complex scenes feasible to render interactively. The results show that BVH acceleration provides a massive speedup in rendering times. Without BVH, each ray must be tested against every primitive in the scene, leading to O(n) complexity. With BVH, ray-primitive intersection tests are reduced to O(log n), thanks to hierarchical pruning of bounding boxes. This allows us to efficiently discard large portions of the scene, drastically reducing computation time. The split heuristic ensures that bounding boxes are well-balanced, minimizing the number of unnecessary intersections. By implementing BVH, we transformed an inefficient brute-force renderer into a highly optimized path tracer, capable of rendering highly detailed scenes in just a few seconds.</p><h2 id="1b90c3c3-e20a-80a6-b85a-e582753360ab" class=""><strong>Part 3: Direct Lighting Implementation</strong></h2><h3 id="1b90c3c3-e20a-806e-b6e8-c62bfd32b133" class=""><strong>Implementation of Direct Lighting</strong></h3><h3 id="1b90c3c3-e20a-809d-bee8-e3c0f2faddab" class=""><strong>1. Uniform Hemisphere Sampling</strong></h3><p id="1b90c3c3-e20a-8092-bd63-d5faa4ebd40a" class="">This method <strong>samples light directions uniformly in the hemisphere</strong> around the intersection point. It follows these steps:</p><ul id="1b90c3c3-e20a-80cf-bfda-c1e319de5332" class="bulleted-list"><li style="list-style-type:disc">Construct a <strong>local coordinate system</strong> aligned with the surface normal.</li></ul><ul id="1b90c3c3-e20a-80b3-ad6d-fa6fe8a83af0" class="bulleted-list"><li style="list-style-type:disc">Sample <code>num_samples</code> directions uniformly in the hemisphere.</li></ul><ul id="1b90c3c3-e20a-803c-9c09-e4d5fab1ccea" class="bulleted-list"><li style="list-style-type:disc">Convert sampled directions to <strong>world space</strong>.</li></ul><ul id="1b90c3c3-e20a-8028-ab14-d3a44f7c6725" class="bulleted-list"><li style="list-style-type:disc">Cast <strong>shadow rays</strong> to check if they hit a light source.</li></ul><ul id="1b90c3c3-e20a-8067-9db0-e6d3feaf986a" class="bulleted-list"><li style="list-style-type:disc">If the shadow ray reaches a light:<ul id="1b90c3c3-e20a-8035-82f0-d4ba2dd2454e" class="bulleted-list"><li style="list-style-type:circle">Compute the <strong>BSDF response</strong> using <code>f(wo, wi)</code>.</li></ul><ul id="1b90c3c3-e20a-80d5-836c-dba3ea91795d" class="bulleted-list"><li style="list-style-type:circle">Weight by <strong>cosine factor</strong> (for Lambertian surfaces).</li></ul><ul id="1b90c3c3-e20a-80e0-bee4-cd53935263d3" class="bulleted-list"><li style="list-style-type:circle">Normalize by the <strong>PDF of uniform sampling</strong> (<code>1 / 2π</code>).</li></ul></li></ul><ul id="1b90c3c3-e20a-8075-9583-cc4113a6023a" class="bulleted-list"><li style="list-style-type:disc">Sum over all valid samples and <strong>return the averaged outgoing radiance</strong>.</li></ul><p id="1b90c3c3-e20a-80c4-83ca-c6dd347b9bac" class="">Key drawback: Many sampled rays do not hit lights, leading to high variance (noise) in the final render.</p><h3 id="1b90c3c3-e20a-80a0-a3dd-e03af4bd8841" class=""><strong>2. Importance Sampling of Lights </strong></h3><p id="1b90c3c3-e20a-80c1-99f8-c63454187c5c" class="">Instead of sampling directions randomly, this method <strong>samples light sources directly</strong>, reducing wasted samples. The steps are:</p><ul id="1b90c3c3-e20a-805f-8842-c0589cba5d53" class="bulleted-list"><li style="list-style-type:disc">Loop over <strong>each light</strong> in <code>scene-&gt;lights</code>.</li></ul><ul id="1b90c3c3-e20a-80ca-b56f-f835617cb379" class="bulleted-list"><li style="list-style-type:disc">If the light is a <strong>delta light (point light)</strong>, sample <strong>once</strong>.</li></ul><ul id="1b90c3c3-e20a-80bf-93be-c29630716d46" class="bulleted-list"><li style="list-style-type:disc">If the light is an <strong>area light</strong>, sample <code>ns_area_light</code> times.</li></ul><ul id="1b90c3c3-e20a-80a3-a42e-e2e80f24de99" class="bulleted-list"><li style="list-style-type:disc">For each light sample:<ul id="1b90c3c3-e20a-80aa-88ef-f26f2c8d11ec" class="bulleted-list"><li style="list-style-type:circle">Use <code>sample_L()</code> to get:<ul id="1b90c3c3-e20a-8003-b086-d26434fdac09" class="bulleted-list"><li style="list-style-type:square">Emitted <strong>radiance</strong>.</li></ul><ul id="1b90c3c3-e20a-8031-8110-e4d46e19e6e6" class="bulleted-list"><li style="list-style-type:square">Sampled <strong>direction (</strong><code><strong>wi</strong></code><strong>)</strong>.</li></ul><ul id="1b90c3c3-e20a-8052-baef-fd0557d6b382" class="bulleted-list"><li style="list-style-type:square">Distance to the light.</li></ul><ul id="1b90c3c3-e20a-8099-b4e1-c628c31e9387" class="bulleted-list"><li style="list-style-type:square">The <strong>PDF</strong> of the sample.</li></ul></li></ul><ul id="1b90c3c3-e20a-80a7-ba19-cd6d8e988de6" class="bulleted-list"><li style="list-style-type:circle">Convert <code>wi</code> to <strong>local space</strong> and check if it lies in the <strong>visible hemisphere</strong>.</li></ul><ul id="1b90c3c3-e20a-8092-8291-e617b0a93ee8" class="bulleted-list"><li style="list-style-type:circle">Cast a <strong>shadow ray</strong> to check if the light is occluded.</li></ul><ul id="1b90c3c3-e20a-8031-9939-fc9a2a617177" class="bulleted-list"><li style="list-style-type:circle">If unobstructed, compute <strong>outgoing radiance</strong> using:<p id="1b90c3c3-e20a-80c8-8e1f-e0fef32ca283" class="">Lout+=f(wo,wi)Li(p,wi)cos⁡θpdfL_{out} += \frac{f(wo, wi) L_i(p, wi) \cos \theta}{pdf}</p></li></ul><ul id="1b90c3c3-e20a-80cb-ab50-ec7238eba830" class="bulleted-list"><li style="list-style-type:circle">Normalize over all samples.</li></ul></li></ul><p id="1b90c3c3-e20a-80fb-8b6d-d5dca4c858f5" class="">Key advantage: Reduces noise by focusing samples only on lights, leading to faster convergence.</p><h3 id="1b90c3c3-e20a-80d6-b65b-c8b11759302f" class=""><strong>Renders through Importance Sampling </strong></h3><p id="1b90c3c3-e20a-803a-8c60-d58412e66190" class=""><strong>at 64 camera rays per pixel and 32 samples per area light</strong></p><div id="1b90c3c3-e20a-80cb-8c43-e3f42979d2ac" class="column-list"></div><div id="1b90c3c3-e20a-80ae-84f4-f20ea3cbacda" class="column-list"><div id="1b90c3c3-e20a-8078-a109-e161635824ec" style="width:50%" class="column"><figure id="1b90c3c3-e20a-8083-acb5-fad9946ceace" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/dragon_64_32.png"><img style="width:479.9999694824219px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/dragon_64_32.png"/></a></figure></div><div id="1b90c3c3-e20a-80e5-8b08-dd0f93ac11a2" style="width:50%" class="column"><figure id="1b90c3c3-e20a-80f3-b6b4-fb7bfb51d1ba" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bench_screenshot_3-17_15-49-37.png"><img style="width:331.9957275390625px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bench_screenshot_3-17_15-49-37.png"/></a></figure><figure id="1bb0c3c3-e20a-8022-a101-f3986153b074" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/wall3.png"><img style="width:331.9886169433594px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/wall3.png"/></a></figure></div></div><h3 id="1b90c3c3-e20a-808a-b384-c31dacd2946e" class="">Uniform Hemisphere vs Importance Sampling</h3><div id="1b90c3c3-e20a-803c-a68c-dc5e4d2818f1" class="column-list"><div id="1b90c3c3-e20a-809c-be46-c573e4c5daf1" style="width:50%" class="column"><figure id="1b90c3c3-e20a-8055-84aa-ebb46ac178b7" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_16_8H.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_16_8H.png"/></a><figcaption>Uniform Hemisphere -s 16 -r 8</figcaption></figure></div><div id="1b90c3c3-e20a-8084-985a-e65b1f508e80" style="width:50%" class="column"><figure id="1b90c3c3-e20a-80b3-a085-ee8bffb2998f" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_16_8.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_16_8.png"/></a><figcaption>Importance Sampling -s 16 -r 8</figcaption></figure></div></div><div id="1b90c3c3-e20a-802d-aa77-fb2867d5f74d" class="column-list"><div id="1b90c3c3-e20a-8066-8903-cdb9cb7358e6" style="width:50%" class="column"><figure id="1b90c3c3-e20a-8036-9360-dc81cd7e418a" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_64_32H.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_64_32H.png"/></a><figcaption>Uniform Hemisphere -s 64 -r 32</figcaption></figure><p id="1bb0c3c3-e20a-80a3-b428-f04216437091" class="">
+	</p></div><div id="1b90c3c3-e20a-80d8-94d3-c6a6e8931e2f" style="width:50%" class="column"><figure id="1b90c3c3-e20a-80c0-bf33-f2e1ea61aea9" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_64_32.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_64_32.png"/></a><figcaption>Importance Sampling -s 64 -r 32</figcaption></figure><p id="1b90c3c3-e20a-80ce-838d-e65b147f6c29" class="">
+	</p></div></div><h3 id="1b90c3c3-e20a-80ae-b7b7-f909aef6fac2" class=""><strong>Rendered Images and Noise Comparison</strong></h3><p id="1b90c3c3-e20a-808a-ab17-c49510e9ef9a" class="">All at 1 camera ray per pixer</p><table id="1b90c3c3-e20a-8023-ba92-e85af5d51fd3" class="simple-table"><tbody><tr id="1b90c3c3-e20a-80ec-abe8-f92e292f4d42"><td id="mkAM" class="">Sampling Method</td><td id="owS\" class=""><code>-l 1</code></td><td id="{W{d" class=""><code>-l 4</code></td><td id="dlm&lt;" class=""><code>-l 16</code></td><td id="jg;w" class=""><code>-l 64</code></td></tr><tr id="1b90c3c3-e20a-8065-952b-e19ad4b35f5c"><td id="mkAM" class=""><strong>Importance Sampling</strong></td><td id="owS\" class=""> very noisy</td><td id="{W{d" class=""> cleaner</td><td id="dlm&lt;" class="">Almost noise-free</td><td id="jg;w" class="">High-quality shadows</td></tr></tbody></table><div id="1b90c3c3-e20a-808b-8f85-ff2409ea881b" class="column-list"><div id="1b90c3c3-e20a-80da-be05-e0dc58faceee" style="width:50%" class="column"><figure id="1b90c3c3-e20a-80f5-97e2-f66221eb534a" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel1.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel1.png"/></a><figcaption>1 sample per area light</figcaption></figure></div><div id="1b90c3c3-e20a-8094-b8af-d0b4f4b49846" style="width:50%" class="column"><figure id="1b90c3c3-e20a-80b9-a580-dff60efce2ca" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel4.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel4.png"/></a><figcaption>4 samples per area light</figcaption></figure></div></div><div id="1b90c3c3-e20a-806b-a7c4-d4d0e504344e" class="column-list"><div id="1b90c3c3-e20a-80b5-900a-c94ad993dc0f" style="width:50%" class="column"><figure id="1b90c3c3-e20a-80d9-9011-f6791df5cc81" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel16.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel16.png"/></a><figcaption>16 samples per area light</figcaption></figure></div><div id="1b90c3c3-e20a-8052-aa71-d51267b19283" style="width:50%" class="column"><figure id="1b90c3c3-e20a-8056-bdf3-e6afa8634829" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel64.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/scenel64.png"/></a><figcaption>64 samples per area light</figcaption></figure></div></div><h3 id="1b90c3c3-e20a-80ec-9ea7-ec216e64190f" class=""><strong>Comparison Analysis</strong></h3><p id="1bb0c3c3-e20a-8019-a7ac-fb592615ef5d" class="">In uniform hemisphere sampling, rays are distributed randomly over the hemisphere, leading to a significant amount of noise, as many rays fail to contribute meaningful light information. This is especially evident at lower sample rates, where the high variance creates a grainy appearance. Even with increased sample, the noise persists, requiring a much higher sample count for a smooth result.</p><p id="1bb0c3c3-e20a-8055-881f-ed1b470799b3" class=""> On the other hand, importance sampling focuses rays toward light sources, ensuring that each sample contributes effectively to the final radiance calculation. This results in dramatically reduced noise, even with a low sample count (top-right). As the sample count increases, the scene converges quickly to a clean, realistic rendering. Ultimately, importance sampling outperforms uniform hemisphere sampling by reducing noise and improving efficiency,  as it produces cleaner images with fewer sample.</p><h2 id="1b90c3c3-e20a-805a-bae6-ec11b4099a90" class=""><strong>Part 4 Global Illumination</strong></h2><h3 id="1ba0c3c3-e20a-8019-a7fc-c398c6938623" class=""><strong>Implementation of Indirect Lighting</strong></h3><p id="1ba0c3c3-e20a-80df-a9bd-d7217341c687" class="">In this part, we extended our renderer to support <strong>global illumination</strong>, which accounts for both <strong>direct and indirect lighting</strong>. Previously, our renderer only considered light that traveled directly from a source to a surface, producing hard shadows and unrealistic lighting. However, in reality, light bounces off multiple surfaces, creating <strong>soft shadows, ambient reflections, and color bleeding</strong>—all of which contribute to more realistic images.</p><p id="1ba0c3c3-e20a-803e-af00-f0bbf7c91d89" class="">To achieve this, we modified our path tracer to recursively trace light bounces beyond the first interaction. The function responsible for this computes <strong>direct illumination</strong> at the surface and then samples a new direction for the light to bounce. A new ray is traced in this direction, and the process repeats, simulating multiple bounces of light in the scene.</p><p id="1ba0c3c3-e20a-8039-8407-eeea20fc0b86" class="">Since this recursion could theoretically continue indefinitely, we implemented <strong>Russian Roulette termination</strong>, which probabilistically stops low-energy paths to optimize rendering efficiency while maintaining an unbiased estimate of global illumination.</p><h3 id="1ba0c3c3-e20a-8015-a59f-e792f228a1ef" class="">Rendered Images with Global Illumination</h3><p id="1ba0c3c3-e20a-806a-91c4-f91fd9c1e410" class="">The inclusion of indirect lighting significantly improves realism by softening shadows and introducing color bleeding.</p><div id="1bb0c3c3-e20a-80db-98ed-da12abdeabca" class="column-list"><div id="1bb0c3c3-e20a-8040-95bd-fb4ac32406bc" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8011-809f-f6ad616a630e" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/spheref.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/spheref.png"/></a></figure></div><div id="1bb0c3c3-e20a-801e-8aa0-d7422b6cd438" style="width:50%" class="column"><figure id="1ba0c3c3-e20a-8040-992a-fd3e925510ac" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/global_illumination.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/global_illumination.png"/></a></figure></div></div><h3 id="1ba0c3c3-e20a-8081-bbbb-c6eb65a5ce21" class=""><strong>Direct vs. Indirect Illumination Comparison</strong></h3><div id="1bb0c3c3-e20a-8054-88b1-ec41ecfc7341" class="column-list"><div id="1bb0c3c3-e20a-80f5-bd75-cba1dcb4be1c" style="width:50%" class="column"><figure id="1ba0c3c3-e20a-803e-bb29-d8843a406f92" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/9316d341-786a-4682-a91c-e8e21ea07652.png"><img style="width:426.66666666666663px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/9316d341-786a-4682-a91c-e8e21ea07652.png"/></a></figure></div><div id="1bb0c3c3-e20a-800f-994b-d4b933d61b82" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8050-83ae-dd7afc3cbca0" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/indirects.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/indirects.png"/></a></figure></div></div><p id="1bb0c3c3-e20a-80e9-bdf1-fa7350ca8b40" class="">Direct lighting alone produces strong highlights and shadows but lacks the ambient effects present in real-world lighting. Indirect lighting captures the soft illumination created by light bouncing off nearby surfaces, but lacks strong shadows. When combined, both types of lighting produce a visually rich and realistic result.</p><h3 id="1bb0c3c3-e20a-8012-b960-cb09aa4043d6" class="">mth bounces with isAccumBounces=false</h3><div id="1bb0c3c3-e20a-8078-a145-fcdbbeef98a0" class="column-list"><div id="1bb0c3c3-e20a-80c4-8e7f-d4d9206c4091" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-803b-ac44-f643172a88ec" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce0.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce0.png"/></a><figcaption>m=0</figcaption></figure></div><div id="1bb0c3c3-e20a-807f-9fe0-e813994b8bf9" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80cc-90f5-ec35365fcbd2" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce1.png"><img style="width:432px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce1.png"/></a><figcaption>m=1</figcaption></figure></div></div><div id="1bb0c3c3-e20a-80ea-93c2-c26633e8dd7b" class="column-list"><div id="1bb0c3c3-e20a-80b4-bc70-c9d8ba34f392" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80f0-a7be-c1d9f2afe53a" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce2.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce2.png"/></a><figcaption>m=2</figcaption></figure></div><div id="1bb0c3c3-e20a-808f-885b-dfad866b23a6" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8094-9e69-de9d477e6855" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce3.png"><img style="width:432px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce3.png"/></a><figcaption>m=3</figcaption></figure></div></div><div id="1bb0c3c3-e20a-80b7-bef0-f180a3dd9787" class="column-list"><div id="1bb0c3c3-e20a-802a-9ba8-e2d09699a7f3" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8009-ac91-f4109bc54a8b" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce4.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce4.png"/></a><figcaption>m=4</figcaption></figure></div><div id="1bb0c3c3-e20a-80ce-a9f6-ee13da51739c" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8071-9c72-eda3530d022b" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce5.png"><img style="width:432px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce5.png"/></a><figcaption>m=5</figcaption></figure></div></div><p id="1bb0c3c3-e20a-8072-9398-e61072355369" class="">In m=0 (zero-bounce radiance), only the ceiling light is visible, since this image only includes direct emission and does not include any reflections or bounces. m=1 (Ffrst bounce ): This captures only the direct illumination from the light source. The bunny and the walls receive light, but no indirect effects are visible. Shadows appear strong and well-defined, with no light leaking into occluded areas.</p><ul id="1bb0c3c3-e20a-8019-8100-d8b7fd10708b" class="bulleted-list"><li style="list-style-type:disc"><strong>m=2 (Second bounce):</strong> This is the first instance of indirect illumination. Light has now bounced off the walls, floor, or ceiling, softly illuminating the bunny and the surrounding area. Color bleeding from the red and blue walls onto the bunny and floor is evident.</li></ul><ul id="1bb0c3c3-e20a-805c-82b5-c162431752d8" class="bulleted-list"><li style="list-style-type:disc"><strong>m=3 (Third bounce):</strong> Light continues to scatter deeper into the scene. While the intensity is lower than the second bounce, it refines the illumination in shadowed regions.</li></ul><p id="1bb0c3c3-e20a-80de-a01d-f7a08cdf17f2" class="">m=4 and m=5: These higher-order bounces contribute increasingly subtle lighting effects. By the fourth and fifth bounces, the scene is mostly darker and noisier, as each additional bounce carries less energy and contributes a more diffuse effect.</p><p id="1bb0c3c3-e20a-808e-b1fa-fa1b031088e2" class="">Unlike traditional rasterization, which only considers direct lighting (m=1 equivalent), path tracing with multiple bounces captures realistic indirect lighting effects:</p><ul id="1bb0c3c3-e20a-8094-aba1-e808e545a9e3" class="bulleted-list"><li style="list-style-type:disc">Color bleeding - the bunny reflects hues from the red and blue walls, which wouldn’t be captured in rasterized rendering.</li></ul><ul id="1bb0c3c3-e20a-80b4-bcc5-cc440d392125" class="bulleted-list"><li style="list-style-type:disc">Softening of shadows - Instead of harshly defined shadows, higher bounce counts allow light to fill darker areas naturally.</li></ul><p id="1bb0c3c3-e20a-8069-bee4-da04df09ac24" class=""><strong>Accumulating Bounces vs. Isolating Each Bounce</strong></p><p id="1bb0c3c3-e20a-80bc-b9a9-ca295b155019" class="">Comparison images:</p><p id="1bb0c3c3-e20a-80e4-9114-c301c2fb1214" class="">top row: isAccumBounces = false</p><p id="1bb0c3c3-e20a-8018-bbdf-cef4b143a772" class="">bottom row: isAccumBounces = true</p><p id="1bb0c3c3-e20a-80ef-ab8d-d56e3ca5ce86" class="">m = 0, 1, 2; </p><div id="1bb0c3c3-e20a-8091-8fa2-c46654ea8c40" class="column-list"><div id="1bb0c3c3-e20a-805e-8e12-d92d1cbac0a1" style="width:33.333333333333336%" class="column"><figure id="1bb0c3c3-e20a-8024-8f7d-e48574c217a7" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce0%201.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce0%201.png"/></a></figure></div><div id="1bb0c3c3-e20a-8053-9da1-dfaefc1d3467" style="width:33.333333333333336%" class="column"><figure id="1bb0c3c3-e20a-80c7-86d3-cb4657203a1f" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce1%201.png"><img style="width:331.9886169433594px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce1%201.png"/></a></figure></div><div id="1bb0c3c3-e20a-80e8-bd99-d406d19781f7" style="width:33.33333333333333%" class="column"><figure id="1bb0c3c3-e20a-80c9-a1eb-fd7bc4d69717" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce2%201.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce2%201.png"/></a></figure></div></div><div id="1bb0c3c3-e20a-80ea-9208-da950e377202" class="column-list"><div id="1bb0c3c3-e20a-80f0-ab48-fc3cf6c5ecac" style="width:33.333333333333336%" class="column"><figure id="1bb0c3c3-e20a-8094-9763-f8fd4a904d74" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce0%202.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce0%202.png"/></a></figure></div><div id="1bb0c3c3-e20a-8057-9c19-f8a57a77ec3d" style="width:33.333333333333336%" class="column"><figure id="1bb0c3c3-e20a-80ce-88bc-c53eaa0d9b01" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce1d.png"><img style="width:331.9886169433594px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce1d.png"/></a></figure></div><div id="1bb0c3c3-e20a-80b1-82fc-d9effce3e1af" style="width:33.33333333333333%" class="column"><figure id="1bb0c3c3-e20a-8016-8d26-d897186ffbb7" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce2d.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce2d.png"/></a></figure></div></div><p id="1bb0c3c3-e20a-8003-b4fc-cb29ce357192" class="">m = 3, 4, 5</p><div id="1bb0c3c3-e20a-808a-be7b-f6002526d99f" class="column-list"><div id="1bb0c3c3-e20a-8078-a0a2-ffccb723c054" style="width:33.333333333333336%" class="column"><figure id="1bb0c3c3-e20a-806f-9ece-c8a3bc182a22" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce3%201.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce3%201.png"/></a></figure></div><div id="1bb0c3c3-e20a-808d-a1b2-d2f3d7d2ccdb" style="width:33.333333333333336%" class="column"><figure id="1bb0c3c3-e20a-8094-86da-ea63f60378bc" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce4%201.png"><img style="width:331.9886169433594px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce4%201.png"/></a></figure></div><div id="1bb0c3c3-e20a-80bb-b7dc-e526f888be97" style="width:33.33333333333333%" class="column"><figure id="1bb0c3c3-e20a-803f-bedf-db53bcd9fb55" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce5%201.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce5%201.png"/></a></figure></div></div><div id="1bb0c3c3-e20a-801e-aa98-e64ef6f6d269" class="column-list"><div id="1bb0c3c3-e20a-80c7-889a-d855f1c50918" style="width:33.33333333333333%" class="column"><figure id="1bb0c3c3-e20a-80a9-8fc0-d234572a8086" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce3d.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce3d.png"/></a></figure></div><div id="1bb0c3c3-e20a-8019-b5e9-d8e67405f50a" style="width:33.33333333333333%" class="column"><figure id="1bb0c3c3-e20a-8020-b39a-e1c0418276d0" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce4d.png"><img style="width:331.9886169433594px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce4d.png"/></a></figure></div><div id="1bb0c3c3-e20a-800d-81db-d87679e202d3" style="width:33.33333333333333%" class="column"><figure id="1bb0c3c3-e20a-809b-8741-e73320fc5988" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce5d.png"><img style="width:288px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bounce5d.png"/></a></figure></div></div><p id="1bb0c3c3-e20a-8056-83db-e35d746b6652" class="">When all bounces are accumulated, the scene appears naturally illuminated. When only individual bounces are rendered, it visualizes how much each additional light bounce contributes to the final result. This comparison shows how global illumination builds up over multiple bounces, creating more realistic lighting effects.</p><h3 id="1ba0c3c3-e20a-8075-bc0f-f719151aad81" class=""><strong>Effect of Increasing Light Bounces</strong></h3><p id="1ba0c3c3-e20a-806c-a6c5-d82610cc1d2d" class="">rendered at 1024 samples per pixel and 4 samples per area light</p><div id="1bb0c3c3-e20a-8003-b071-e651a15b6a4c" class="column-list"><div id="1bb0c3c3-e20a-8002-8295-c9752ed0733c" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80a7-9997-f49fec89b6a1" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym0.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym0.png"/></a><figcaption>m=0 (Emission Only)</figcaption></figure></div><div id="1bb0c3c3-e20a-8037-ae47-e7ecacf029ce" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80f8-82ba-f877f5cd9d50" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym1.png"><img style="width:432px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym1.png"/></a><figcaption>m=1 (Direct Lighting)</figcaption></figure></div></div><div id="1bb0c3c3-e20a-804d-98d6-f366370a5af7" class="column-list"><div id="1bb0c3c3-e20a-80cb-b156-f57f46e5fd74" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8047-8c2c-da7c9d0dc139" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym2.png"><img style="width:528px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym2.png"/></a><figcaption>m=2 (First Indirect Bounce)</figcaption></figure></div><div id="1bb0c3c3-e20a-8014-aed6-ef9856e00729" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80af-a6c6-e3b2ce680e93" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym2%201.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym2%201.png"/></a><figcaption>m=3 (Second Indirect Bounce)</figcaption></figure></div></div><div id="1bb0c3c3-e20a-80b2-aed4-cf449c0f94c4" class="column-list"><div id="1bb0c3c3-e20a-80f2-9e85-dcfb3e468ff0" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-806d-811f-e4ec7aa789e5" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym3.png"><img style="width:528px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym3.png"/></a><figcaption>m=4 (Higher Order Bounces)</figcaption></figure></div><div id="1bb0c3c3-e20a-8065-ace9-c50dffd15719" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-805c-9cb2-cf285f603455" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym100.png"><img style="width:576px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunnym100.png"/></a><figcaption>m = 100</figcaption></figure></div></div><p id="1ba0c3c3-e20a-80e1-ba4c-c24bbf58d495" class="">With zero bounces, only self-emissive light sources contribute to the image. At one bounce, we capture direct illumination, but shadows appear harsh and unrealistic. At two and three bounces, color bleeding and indirect illumination become visible, improving realism. Beyond four bounces, additional contributions become less significant, meaning that a shallow recursion depth is usually sufficient.</p><p id="1bb0c3c3-e20a-805f-a412-f86878b19d9d" class="">At low bounce depths, the scene lacks inter-reflections and ambient lighting. At higher depths, additional bounces have a diminishing effect on realism. With m=100, the image is nearly identical to m=5, confirming that a few bounces are sufficient for realistic results. Russian Roulette termination effectively stops unnecessary calculations, making rendering much more efficient.</p><p id="1ba0c3c3-e20a-8063-bcd2-f641a165caa0" class="">This experiment also shows the diminishing returns of additional bounces: most of the scene’s realism comes from the first few indirect reflections.</p><h3 id="1ba0c3c3-e20a-8039-aa62-f9fe039fbed1" class=""><strong>Effect of Sample Rate on Image Noise</strong></h3><p id="1ba0c3c3-e20a-8084-931a-f50517bb3234" class="">Since global illumination relies on Monte Carlo sampling, increasing the number of samples per pixel reduces noise and produces smoother images.</p><div id="1bb0c3c3-e20a-8084-9b93-ff3e63ca2114" class="column-list"><div id="1bb0c3c3-e20a-8043-8019-dfead6dad75f" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80d0-9dd9-eb821c1ac9b4" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s1.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s1.png"/></a><figcaption>s=1</figcaption></figure></div><div id="1bb0c3c3-e20a-809a-8f79-f6c8b1e92649" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80b3-a3af-e3991685cdc4" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s2.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s2.png"/></a><figcaption>s=2</figcaption></figure></div></div><div id="1bb0c3c3-e20a-8011-b653-ddda1f4128da" class="column-list"><div id="1bb0c3c3-e20a-808d-9d99-f2716236b3fc" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8014-897b-ead84cb8b8e9" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s4.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s4.png"/></a><figcaption>s=3</figcaption></figure></div><div id="1bb0c3c3-e20a-808a-98e2-c29776a3611a" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-807f-a84f-ef038b569e07" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s8.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s8.png"/></a><figcaption>s=4</figcaption></figure></div></div><div id="1bb0c3c3-e20a-8059-8f44-cf97551584ab" class="column-list"><div id="1bb0c3c3-e20a-8055-9ab1-ff7f2f2877d4" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-8017-9b4a-ec6cb903d7d9" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s16.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s16.png"/></a><figcaption>s=5</figcaption></figure></div><div id="1bb0c3c3-e20a-80f1-b70d-f214dd4f41fa" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80a2-9427-f8459a074e96" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s64.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s64.png"/></a><figcaption>s=6</figcaption></figure></div></div><figure id="1bb0c3c3-e20a-8050-abac-d7ac2a7ee18a" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s1024.png"><img style="width:336px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/output_s1024.png"/></a><figcaption>s=1024</figcaption></figure><p id="1ba0c3c3-e20a-8055-b05a-fc173d6418b6" class="">At low sample rates (1–4 spp), the image is very noisy due to insufficient sampling. Increasing to 64+ spp greatly reduces noise. At 1024 spp, the image fully converges with minimal noise, showing the importance of Monte Carlo integration in rendering. Indirect lighting is crucial for realism, as it softens shadows and enables color bleeding. Multiple light bounces significantly improve realism, but diminishing returns occur after a few bounces. Russian Roulette termination efficiently balances accuracy and performance, preventing unnecessary computations. Higher sample rates reduce noise, but also significantly increase rendering time.</p><p id="1ba0c3c3-e20a-8066-87fa-e18ae44dddf1" class="">By implementing Monte Carlo path tracing with indirect lighting, we transformed our renderer from a simple direct lighting model into a physically-based global illumination system, capable of producing photorealistic images.</p><h2 id="1bb0c3c3-e20a-80d1-ad9e-e3b5481346e9" class=""><strong>Part 5: Adaptive Sampling</strong></h2><p id="1bb0c3c3-e20a-805d-9b5c-fcb260b377ac" class="">Path tracing generates realistic images but is computationally expensive, especially when every pixel is sampled with a fixed high number of rays. Adaptive sampling optimizes this process by dynamically adjusting the number of samples per pixel based on how much variation exists in its illumination. If a pixel’s brightness stabilizes quickly, it receives fewer samples, while noisy areas receive more. This approach reduces overall computation while maintaining image quality.</p><h3 id="1bb0c3c3-e20a-807d-9874-caf52a80ff3f" class=""><strong>Implementation Walkthrough</strong></h3><p id="1bb0c3c3-e20a-8013-9b37-cb4026d6925d" class="">Adaptive sampling was implemented in <code>PathTracer::raytrace_pixel()</code>. Here’s how it works:</p><ol type="1" id="1bb0c3c3-e20a-8014-bef9-e1aa59a808f4" class="numbered-list" start="1"><li><strong>Initialize Tracking Variables - </strong>For each pixel, keep track of the total sum of sampled brightness values and their squared values. This allows us to later compute how much variation exists in the pixel’s brightness.</li></ol><ol type="1" id="1bb0c3c3-e20a-8010-96ce-c8c3879c8859" class="numbered-list" start="2"><li><strong>Sampling Loop - </strong>We fire rays from the camera into the scene, just like before. For each sample, we estimate the radiance of the pixel using <code>est_radiance_global_illumination()</code> and accumulate the result. We store both the total brightness sum and the squared brightness sum.</li></ol><ol type="1" id="1bb0c3c3-e20a-80b1-847c-c0dbb3bea23d" class="numbered-list" start="3"><li><strong>Convergence Check (Every </strong><code><strong>samplesPerBatch</strong></code><strong> Samples) - </strong>Instead of checking after every sample (which would be inefficient), we check in batches (default is 32 samples per batch). We compute whether the brightness values of the pixel have stabilized. If the change in brightness becomes small enough, we <strong>stop sampling early</strong> for that pixel. If the variation is still high (like in shadowed areas or indirect lighting regions), we continue sampling.</li></ol><ol type="1" id="1bb0c3c3-e20a-805d-b7e0-eb8ee658257b" class="numbered-list" start="4"><li><strong>Store the Results - </strong>We record how many samples were actually used for each pixel. This data is used to generate a <strong>sampling rate image</strong>, which visually shows where more or fewer samples were taken.</li></ol><h3 id="1bb0c3c3-e20a-803c-8fe7-e2bf5a79596e" class="">Images</h3><p id="1bb0c3c3-e20a-8036-884a-e6a240428cd2" class="">Each scene is rendered at <strong>2</strong>048 max samples per pixel, 1 sample per light and max ray depth of 5. I attached both the final rendered image and a sampling rate image that visualizes the adaptive sampling in action—regions with low sample counts appear blue, and high sample counts appear red.</p><p id="1bb0c3c3-e20a-80ae-a240-d49e07327afa" class=""><strong>Scene 1: CBbunny.dae</strong></p><div id="1bb0c3c3-e20a-80a6-8694-ed358675cda1" class="column-list"><div id="1bb0c3c3-e20a-806d-8802-cbc192582123" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-807c-8243-c76805bcd5e3" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny.png"/></a><figcaption>Rendered Image</figcaption></figure></div><div id="1bb0c3c3-e20a-80f9-93f9-c9a01dc2b311" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-80d7-bbfb-f87e02cc705a" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_rate.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/bunny_rate.png"/></a><figcaption>Sampling Rate Image</figcaption></figure></div></div><p id="1bb0c3c3-e20a-801f-a152-f98cf3e170c1" class="">Observations: The bunny’s body required more samples, particularly in shadowed areas and places with indirect lighting. The ground and directly lit regions converged quickly and used fewer samples. The edges of soft shadows took longer to resolve, so those areas appear in red in the sample rate image.</p><p id="1bb0c3c3-e20a-8000-baae-e94c029591f2" class=""><strong>Scene 2: CBspheres_lambertian.dae</strong></p><div id="1bb0c3c3-e20a-8081-970a-cdf81137d1e2" class="column-list"><div id="1bb0c3c3-e20a-804f-8dcf-c80bfbe4dd3c" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-801c-b4e7-fa5339a8fea4" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/spheresp5.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/spheresp5.png"/></a></figure></div><div id="1bb0c3c3-e20a-8069-aa61-d67d24764334" style="width:50%" class="column"><figure id="1bb0c3c3-e20a-808f-862c-fc03d89f8e1f" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/spheresp5_rate.png"><img style="width:479.98577880859375px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/spheresp5_rate.png"/></a></figure></div></div><p id="1bb0c3c3-e20a-80f1-bc52-ecc75e55e60a" class="">Observations: The undersides of spheres and shadowed areas required significantly more samples to reduce noise.The ceiling light and directly illuminated surfaces converged fast, resulting in lower sample counts. Indirectly lit regions and soft shadows required the most work and took longer to refine.</p><p id="1bb0c3c3-e20a-8000-93bd-d6814e335162" class="">In conclusion, Adaptive sampling significantly improved efficiency by focusing computation on difficult areas while reducing unnecessary sampling in smoothly lit regions.</p><ul id="1bb0c3c3-e20a-807f-9360-fb4f1a941283" class="bulleted-list"><li style="list-style-type:disc">Bright, directly lit areas needed fewer samples to converge.</li></ul><ul id="1bb0c3c3-e20a-8070-9793-e4f4721ab91b" class="bulleted-list"><li style="list-style-type:disc">Shadowed regions, reflections, and indirect lighting areas needed more samples.</li></ul><ul id="1bb0c3c3-e20a-807a-a642-d2aa9975fc16" class="bulleted-list"><li style="list-style-type:disc">This allowed us to get high-quality results in less time compared to uniform sampling.</li></ul><p id="1bb0c3c3-e20a-804f-a820-e314369b7803" class="">By using adaptive sampling, we achieved noise-free renders while making the rendering process much more efficient. </p><h2 id="1bb0c3c3-e20a-80cc-beea-cb1d6cbe4645" class="">Part 6: Extra Credit</h2><h2 id="1bc0c3c3-e20a-8019-ac85-fa2422d74dc6" class="">Hammersley sampler</h2><ul id="1bb0c3c3-e20a-803f-a8d7-dcb410f18d98" class="bulleted-list"><li style="list-style-type:disc">Create a more sophisticated pixel sampler that generates jittered or pseudorandom low-discrepancy samples. You’ll probably want to make an extension to the <code>Sampler2D</code> class to implement this. </li></ul><p id="1bc0c3c3-e20a-8074-ac97-c11009f4bdc7" class="">I researched on a couple different sampling techniques through the given slides and some more docs and settled on Hammersley sampling, a low-discrepancy quasi-random sampling method, replacing the simpler uniform random sampler. Low-discrepancy sequences ensure that samples are more evenly spread across the sampling domain, thus reducing aliasing artifacts and accelerating convergence to a smooth final image.</p><p id="1bc0c3c3-e20a-806c-ab32-ebf54ae36ce2" class="">The Hammersley sequence achieves this by evenly spacing samples along one dimension and using the radical inverse function to spread samples quasi-randomly in the other dimension, , which significantly reduces clumping of sample points.  This improves noise characteristics, particularly noticeable in scenes with indirect illumination, shadows, and glossy reflections.</p><p id="1bc0c3c3-e20a-8073-8e08-ced714b4c2c4" class="">Specifically, the sample coordinates (u, v) are generated as follows:</p><p id="1bc0c3c3-e20a-8013-a452-c05a1cbd62af" class="">u=i/N,</p><p id="1bc0c3c3-e20a-80bf-a04a-cac93fba7d88" class="">v=radicalInverseBase2(i)</p><p id="1bc0c3c3-e20a-808e-9f76-e381a6ee46ab" class="">where i is the sample index, and N is the total number of samples per pixel.</p><p id="1bc0c3c3-e20a-80f9-b0c5-c52ead4c1fc9" class="">and radicalInverseBase2(i) reverses the bits of the binary representation of , spreading points evenly and minimizing clustering.</p><p id="1bc0c3c3-e20a-809d-86ee-ddeda0158f8c" class=""><strong>Implementation Details</strong></p><p id="1bc0c3c3-e20a-80c6-88ae-f501d21d4236" class="">Extension to Sampler2D Class: I created a subclass named <code>HammersleySampler2D</code> derived from the provided <code>Sampler2D</code> interface. This class will hold the total number of samples (for sequence normalization) and an index to track the current sample.</p><p id="1bc0c3c3-e20a-80fc-8910-fbf96bdbb016" class="">Then, I Implemented the radical inverse function (<code>radicalInverseBase2</code>) by reversing the binary representation of the sample index to obtain well-distributed, low-discrepancy samples.</p><p id="1bc0c3c3-e20a-805e-bcd0-c9c8cd14bc4d" class="">In the sampler implementation, I define the <code>get_sample()</code> method for <code>HammersleySampler2D</code>. Each call to <code>get_sample()</code> returns the next point in the Hammersley sequence (and wraps around after reaching the total count so each pixel starts a new sequence):</p><p id="1bc0c3c3-e20a-8010-ae56-fa29a48030e2" class="">On each call, <code>currentIndex</code> represents the sample number i. I compute <code>x = i / N</code> and <code>y = Φ₂(i)</code> using <code>radicalInverseBase2</code>. The bit-reversal logic in <code>radicalInverseBase2</code> reflects the binary digits of <code>i</code> around the decimal point to produce a fractional value in [0,1). For example, if <code>i = 5</code> (binary <code>101</code>), Φ₂(i) yields <code>0.101₂ = 0.625</code>. We then increment the index for the next sample. Wrapping <code>currentIndex</code> back to 0 after <code>sampleCount</code> ensures each pixel uses the same sequence of samples from the beginning (so each pixel is sampled uniformly with the Hammersley pattern).</p><p id="1bc0c3c3-e20a-8084-b326-f0113407567a" class="">Finally, I update the path tracer to use our new sampler instead of the uniform grid sampler. In the PathTracer initialization (where the sampler is constructed) and any place the sampler is referenced, replace <code>UniformGridSampler2D</code> with <code>HammersleySampler2D</code>. </p><p id="1bc0c3c3-e20a-8081-9ce3-cd922281193d" class="">Now, when tracing each pixel, the code uses <code>gridSampler-&gt;get_sample()</code> to produce Hammersley-distributed sample points. The pixel sampling loop remains the same, but will draw on the new sampler.</p><p id="1bc0c3c3-e20a-80f9-8258-f9290ea88521" class="">With these changes, the path tracer will generate stratified sample positions using the Hammersley low-discrepancy sequence instead of purely random sampling. This means sample points are more evenly distributed over the pixel area, reducing clustering and improving convergence. Each pixel’s samples <code>(x, y)</code> will follow the pattern:</p><p id="1bc0c3c3-e20a-80b4-aad3-c81f574eb287" class="">To measure the performance gains, I compared rendering times between the uniform sampler and the Hammersley sampler.</p><table id="1bc0c3c3-e20a-8076-8109-d0aba3a20fb9" class="simple-table"><tbody><tr id="1bc0c3c3-e20a-800d-b0be-d2e0aeea17d6"><td id="Ofb~" class="">Sampler</td><td id="u{vS" class="">Samples per Pixel</td><td id="p}zE" class="">Render Time (seconds)</td><td id="~ATU" class="">Relative Speedup</td></tr><tr id="1bc0c3c3-e20a-80ad-87f6-f07f6b72c359"><td id="Ofb~" class="">Uniform Random</td><td id="u{vS" class="">16 CBsphere.dae</td><td id="p}zE" class="">5</td><td id="~ATU" class=""></td></tr><tr id="1bc0c3c3-e20a-80c9-9c44-d420532af926"><td id="Ofb~" class=""><strong>Hammersley</strong></td><td id="u{vS" class="">16</td><td id="p}zE" class="">2.88</td><td id="~ATU" class="">~1.7×</td></tr><tr id="1bc0c3c3-e20a-80ee-9f24-ec67b28f6199"><td id="Ofb~" class="">Uniform Random</td><td id="u{vS" class="">64 CBbunny.dae</td><td id="p}zE" class="">70</td><td id="~ATU" class=""></td></tr><tr id="1bc0c3c3-e20a-8050-97b0-fc33022644ec"><td id="Ofb~" class=""><strong>Hammersley</strong></td><td id="u{vS" class="">64</td><td id="p}zE" class="">35.5</td><td id="~ATU" class="">~2×</td></tr><tr id="1bc0c3c3-e20a-80c3-a19f-d4ec3aee6a88"><td id="Ofb~" class="">Uniform Random</td><td id="u{vS" class="">1024</td><td id="p}zE" class="">413</td><td id="~ATU" class=""></td></tr><tr id="1bc0c3c3-e20a-8032-91f7-d9fa117d6aa7"><td id="Ofb~" class=""><strong>Hammersley</strong></td><td id="u{vS" class="">1024</td><td id="p}zE" class="">364</td><td id="~ATU" class="">~1.2x</td></tr></tbody></table><p id="1bc0c3c3-e20a-8074-b2fb-e33f669923a8" class="">Thus, Hammersley is faster overall because it needs fewer samples for the same quality.  At very high sample counts, uniform random eventually converges. The difference in noise becomes less noticeable because sheer sample count compensates.</p><p id="1bc0c3c3-e20a-8052-b547-f7d482409707" class="">In conclusion, the implementation of the Hammersley sampler improved image quality, reducing visual noise and aliasing through better-distributed samples. And speed performance gains were also observed due to quicker convergence.</p><h2 id="1bb0c3c3-e20a-800e-818f-ed2d10c919fb" class="">Efficient construction and intersection</h2><ul id="1bb0c3c3-e20a-8022-b93b-cf056be5ef00" class="bulleted-list"><li style="list-style-type:disc">Implement more efficient construction and intersection routines for the BVH that replace the recursive calls with a stack and a <code>while</code> loop (you should use the C++ standard library’s <code>std::stack</code> class). Compare performance in terms of construction time and scene rendering time.</li></ul><p id="1bc0c3c3-e20a-80c7-9100-e72312ac7c74" class="">The original implementation of BVH construction and traversal relied on recursive calls, which can lead to stack overflow risks and function call overhead. This optimization replaces <strong>recursive BVH construction and intersection routines</strong> with <strong>iterative versions using </strong><code><strong>std::stack</strong></code>, reducing function call overhead, improving cache efficiency, and accelerating rendering.</p><ul id="1bc0c3c3-e20a-80e3-a670-de868cdabf0f" class="bulleted-list"><li style="list-style-type:disc"><strong>BVH Construction:</strong> Replaced recursive node splitting with a <strong>stack-based iterative approach</strong>.</li></ul><ul id="1bc0c3c3-e20a-8007-a617-ff9fdeb35216" class="bulleted-list"><li style="list-style-type:disc"><strong>BVH Intersection:</strong> Traverses the BVH using an <strong>explicit stack</strong> instead of recursive calls.</li></ul><ul id="1bc0c3c3-e20a-8002-b64b-c37d8f8a8452" class="bulleted-list"><li style="list-style-type:disc"><strong>Performance Gains:</strong> Reducing recursion <strong>decreases memory overhead</strong> and improves <strong>traversal speed</strong>.</li></ul><p id="1bc0c3c3-e20a-800c-89fa-de0e7730b4c1" class=""><strong>Iterative BVH Construction</strong></p><p id="1bc0c3c3-e20a-801c-8d83-d3bbab49a2f6" class="">Optimized Approach (Stack-Based) - Used <code>std::stack</code> to manage node processing instead of recursion. Processed nodes iteratively, reducing function call overhead. Pushed child nodes onto the stack, eliminating deep recursion.</p><p id="1bc0c3c3-e20a-8071-9081-e06c622b778a" class="">Implementation Details - Start with a root node, computing its bounding box. Push the root node onto a stack and iteratively process nodes. If the node contains too many primitives, partition them into left and right subgroups. Push child nodes onto the stack instead of calling recursively. Continue processing until the stack is empty.</p><p id="1bc0c3c3-e20a-80fa-b0bf-d12d33bfb56f" class=""><strong>Iterative BVH Intersection</strong></p><p id="1bc0c3c3-e20a-80b7-8ff4-ff8b747d7b2d" class="">Optimized Approach (Stack-Based) - Used <code>std::stack&lt;BVHNode*&gt;</code> instead of recursion. Processed nodes iteratively, ensuring early exits when intersections were found. Ordered traversal based on ray direction, checking closer nodes first.</p><p id="1bc0c3c3-e20a-80fb-b0cc-f2535db93750" class="">Implementation Details -Push root node onto a stack and iteratively process nodes. Check bounding box intersection before pushing children. Prioritize traversal order based on ray direction. Early exit when an intersection is found in <code>has_intersection()</code>.</p><p id="1bc0c3c3-e20a-8029-ba3d-c382a3636344" class=""><strong>Performance Comparison using -s 64 -l 16 -m 5</strong></p><p id="1bc0c3c3-e20a-807d-856f-eddd8387baea" class=""><strong>BVH Construction Time (Seconds)</strong></p><table id="1bc0c3c3-e20a-8046-831e-d7cea91c8f7b" class="simple-table"><tbody><tr id="1bc0c3c3-e20a-804d-901d-f20ace9dcac3"><td id="u=X_" class="">Scene</td><td id="IM}H" class="">Recursive BVH</td><td id="bHWi" class="">Iterative BVH</td><td id="LBJ@" class="">Speedup</td></tr><tr id="1bc0c3c3-e20a-80c8-969f-c6eeba8f7928"><td id="u=X_" class="">CBbunny</td><td id="IM}H" class="">0.11s</td><td id="bHWi" class="">0.08s</td><td id="LBJ@" class="">1.31x</td></tr><tr id="1bc0c3c3-e20a-80cc-8440-f3866b93c089"><td id="u=X_" class="">dragon</td><td id="IM}H" class="">0.04s</td><td id="bHWi" class="">0.03s</td><td id="LBJ@" class="">1.55x</td></tr></tbody></table><p id="1bc0c3c3-e20a-80e3-ad8d-c21c8b0b98ae" class=""><strong>Scene Rendering Time (Seconds)</strong></p><table id="1bc0c3c3-e20a-8095-a77e-ced32ec88b9d" class="simple-table"><tbody><tr id="1bc0c3c3-e20a-8045-9ab9-c3f9f15f21eb"><td id="ybGc" class="">Scene</td><td id="hWtr" class="">Recursive BVH</td><td id="v}WA" class="">Iterative BVH</td><td id="_Bj=" class="">Speedup</td></tr><tr id="1bc0c3c3-e20a-803a-bb61-df2c50bf7995"><td id="ybGc" class="">CBbunny</td><td id="hWtr" class="">51s</td><td id="v}WA" class="">42s</td><td id="_Bj=" class="">1.21x</td></tr><tr id="1bc0c3c3-e20a-8034-ae5f-ee1c8c0bd588"><td id="ybGc" class="">Dragon</td><td id="hWtr" class="">15.2s</td><td id="v}WA" class="">10.3s</td><td id="_Bj=" class="">1.48x</td></tr></tbody></table><p id="1bc0c3c3-e20a-8001-8028-f3c0768e0b6a" class="">The iterative BVH construction is 1.3-1.5x faster, as it avoids expensive recursive calls. Eliminating recursion reduces overhead, improving traversal speed by 10-50%. Better traversal order leads to fewer ray-primitive tests.</p><h2 id="1bb0c3c3-e20a-8053-bd7e-ee30590bcaf5" class="">Memory efficient BVH</h2><ul id="1bb0c3c3-e20a-8074-851b-f5a07d1fbe39" class="bulleted-list"><li style="list-style-type:disc">Implement a more memory efficient BVH by storing all the <code>Primitive</code> pointers in one large vector and only keeping index references into small contiguous chunks of this vector inside the leaves. Alternatively, think of and research other ways to compress the tree. Compare memory usage to the original data structure.</li></ul><p id="1bb0c3c3-e20a-8022-aebe-db017c50a596" class="">In the original BVH, each node stores explicit pointers to child nodes and iterators to primitives. This leads to high memory usage due to pointer storage and inefficient memory access patterns. Instead, I replaced these pointers with integer indices referencing a contiguous array of nodes.</p><p id="1bb0c3c3-e20a-8099-ac02-e1167a91b327" class="">1. Replacing Pointers with Indices - Each node now stores:</p><ul id="1bb0c3c3-e20a-80e2-ae26-cd9f5f21e129" class="bulleted-list"><li style="list-style-type:disc">Bounding Box: Defines the spatial extent of the node.</li></ul><ul id="1bb0c3c3-e20a-800b-868e-e5e5308e058b" class="bulleted-list"><li style="list-style-type:disc">Indices: <code>leftChild</code> and <code>rightChild</code> store integer indices instead of raw pointers.</li></ul><ul id="1bb0c3c3-e20a-8097-b1c1-e8afbf7b86b4" class="bulleted-list"><li style="list-style-type:disc">Primitive Range: Instead of storing iterators, the node stores an integer start index and count of primitives.</li></ul><p id="1bb0c3c3-e20a-80f7-9b9a-fb6f6ca81330" class="">This reduces per-node memory from 80 bytes (original) to 64 bytes, saving 20% of BVH node memory.</p><p id="1bb0c3c3-e20a-80c5-af2a-fd0e62e59774" class="">2. Contiguous Primitive Storage - The original BVH stores redundant primitive pointers in every leaf node. This wastes memory because multiple leaves may reference the same primitives. Instead I store all primitives in a single contiguous array. And Leaf nodes only store indices referencing this array, avoiding duplication. This ensures only one copy of each primitive exists, reducing redundant storage and improving cache efficiency.</p><p id="1bb0c3c3-e20a-80d8-b5fa-c1d678aafcae" class="">3. BVH Construction Modifications - Since we now store indices instead of pointers, I modified BVH node construction so that Instead of partitioning <code>std::vector&lt;Primitive*&gt;</code>, I now partition an index array (<code>std::vector&lt;int&gt;</code>) that maps to primitives. And the BVH tree structure is built in-place with minimal heap allocations.</p><p id="1bb0c3c3-e20a-805c-981f-cec5f26dbe1e" class="">4. Traversal Modifications - Instead of following <code>node-&gt;left</code> or <code>node-&gt;right</code> (which were raw pointers), traversal now uses: BVHNode&amp; leftChild = nodes[node.leftChild];<br/>BVHNode&amp; rightChild = nodes[node.rightChild]; This ensures better cache locality, reducing pointer chasing and improving traversal speed.<br/></p><p id="1bb0c3c3-e20a-8078-bdd6-ff9cd0dec21b" class=""><strong>Memory comparison: Optimized BVH vs. Original BVH</strong></p><ol type="1" id="1bb0c3c3-e20a-80a2-a289-ff6c7e5e21b3" class="numbered-list" start="1"><li><strong>BVH Node Structure (Original)</strong></li></ol><p id="1bb0c3c3-e20a-803b-9bd8-f920b412dfac" class="">In the original BVH, each node stores explicit pointers to its child nodes and a range of pointers to primitives.</p><p id="1bb0c3c3-e20a-80db-b986-fd8f6cf6728b" class="">Memory cost per node (ignoring fragmentation):</p><ul id="1bb0c3c3-e20a-8002-b443-fbab29aed024" class="bulleted-list"><li style="list-style-type:disc">Bounding Box (BBox) = <code>6 × double = 48 bytes</code></li></ul><ul id="1bb0c3c3-e20a-805e-be9a-d83bd9418d4e" class="bulleted-list"><li style="list-style-type:disc">Two child pointers (l, r) = <code>2 × 8 bytes = 16 bytes</code></li></ul><ul id="1bb0c3c3-e20a-8083-88f2-f901bad9ea55" class="bulleted-list"><li style="list-style-type:disc">Start and end iterators = <code>2 × 8 bytes = 16 bytes</code></li></ul><ul id="1bb0c3c3-e20a-8047-81b0-ed297a42c751" class="bulleted-list"><li style="list-style-type:disc">Total memory per node (excluding heap overheads) ≈ 80 bytes</li></ul><p id="1bb0c3c3-e20a-8036-ad5d-e1bf81570128" class="">For N nodes, the total BVH structure memory is approximately:</p><p id="1bb0c3c3-e20a-80ce-878f-eee4b145c2cf" class="">Memory (BVH Nodes) = 80×N bytes</p><p id="1bb0c3c3-e20a-805d-8dc6-d5090ed40e55" class=""><strong>Primitive Storage (Original)</strong></p><p id="1bb0c3c3-e20a-8078-9017-e4e93767d311" class="">Each primitive is stored as a pointer in every leaf node. The original BVH does not deduplicate primitive storage, meaning each leaf node directly stores pointers.</p><ul id="1bb0c3c3-e20a-8020-988f-d3bb80db202f" class="bulleted-list"><li style="list-style-type:disc">Each pointer to a primitive = <code>8 bytes</code></li></ul><ul id="1bb0c3c3-e20a-8045-bd59-d30a5b3b4a52" class="bulleted-list"><li style="list-style-type:disc">If a BVH leaf contains K primitives, it stores <code>K × 8</code> bytes.</li></ul><p id="1bb0c3c3-e20a-8090-b017-da4c64d97191" class="">For P primitives, the total memory of primitive storage is:</p><p id="1bb0c3c3-e20a-80bd-83f6-d113fdfaa59b" class="">Memory (Primitives)=8×P bytes</p><p id="1bb0c3c3-e20a-8063-ada3-e38ea34ff6b0" class=""><strong>Overall Memory Cost (Original BVH)</strong></p><p id="1bb0c3c3-e20a-8014-ae01-e3949274e29b" class="">Total Memory=80N+8P bytes</p><p id="1bb0c3c3-e20a-8088-9ce4-eceec0e46c96" class="">where N = number of BVH nodes, and P = number of primitives.</p><ol type="1" id="1bb0c3c3-e20a-80be-9ebf-cd0d5fcb805c" class="numbered-list" start="2"><li><strong>BVH Node Structure (Optimized)</strong></li></ol><p id="1bb0c3c3-e20a-80a2-99e4-e252971269aa" class="">In the optimized BVH, instead of storing explicit child pointers and iterators, we store only integer indices.</p><p id="1bb0c3c3-e20a-8007-839c-cd9ee065dc31" class="">Memory cost per node:</p><ul id="1bb0c3c3-e20a-8000-9686-db75b2b72404" class="bulleted-list"><li style="list-style-type:disc">Bounding Box (BBox) = <code>6 × double = 48 bytes</code></li></ul><ul id="1bb0c3c3-e20a-8017-8de2-f818d1afabe9" class="bulleted-list"><li style="list-style-type:disc">Left child index = <code>4 bytes</code></li></ul><ul id="1bb0c3c3-e20a-80b6-8e7e-c57b71539f7e" class="bulleted-list"><li style="list-style-type:disc">Right child index = <code>4 bytes</code></li></ul><ul id="1bb0c3c3-e20a-80f1-9e30-eef98754defe" class="bulleted-list"><li style="list-style-type:disc">Start index (primitive array) = <code>4 bytes</code></li></ul><ul id="1bb0c3c3-e20a-8042-8e45-dcad3f539feb" class="bulleted-list"><li style="list-style-type:disc">Count of primitives = <code>4 bytes</code></li></ul><ul id="1bb0c3c3-e20a-8088-9e9a-cefb3f48e8ea" class="bulleted-list"><li style="list-style-type:disc">Total memory per node ≈ 64 bytes (16 bytes saved per node compared to the original)</li></ul><p id="1bb0c3c3-e20a-800f-b540-efa7865d6ace" class="">For N nodes, the total BVH memory is:</p><p id="1bb0c3c3-e20a-80a3-b6a9-da4fa54c277e" class="">Memory (Optimized BVH Nodes)=64N bytes</p><p id="1bb0c3c3-e20a-80ea-91ff-ce9ac02cf6ba" class=""><strong>Primitive Storage (Optimized)</strong></p><p id="1bb0c3c3-e20a-801d-9e43-c86d0cfdeaa4" class="">The <strong>biggest memory saving</strong> comes from <strong>storing primitives in a single global vector</strong> instead of duplicating pointers in every BVH node.</p><ul id="1bb0c3c3-e20a-80b0-8b0a-e4b29a3564a5" class="bulleted-list"><li style="list-style-type:disc"><strong>Primitives are stored as a contiguous vector</strong> of <code>Primitive*</code> in a <strong>single array</strong>.</li></ul><ul id="1bb0c3c3-e20a-80a5-a93c-da3bea455cc6" class="bulleted-list"><li style="list-style-type:disc"><strong>Each primitive</strong> is stored once, using <code>8 bytes per primitive</code>.</li></ul><p id="1bb0c3c3-e20a-80de-b958-ccbbd5ce3ab8" class="">Thus, the primitive storage remains:</p><p id="1bb0c3c3-e20a-80a2-8415-fe11cd761bea" class="">Memory (Optimized Primitives)=8P bytes</p><p id="1bb0c3c3-e20a-8092-ab09-d898aa15f456" class="">However, unlike the original BVH, this storage is not duplicated in multiple leaves.</p><p id="1bb0c3c3-e20a-80bb-bb11-ed6bee6f5778" class=""><strong>Overall Memory Cost (Optimized BVH)</strong></p><p id="1bb0c3c3-e20a-80a2-b2be-ddd05c8f74a8" class="">Total Memory (Optimized)=64N+8P bytes</p><h3 id="1bb0c3c3-e20a-805c-857f-f0fae46c8eeb" class=""><strong>Comparison of Memory Savings</strong></h3><table id="1bb0c3c3-e20a-8014-9ca9-db403931aee9" class="simple-table"><tbody><tr id="1bb0c3c3-e20a-80e4-97c3-d96f1363fc8c"><td id="V@}w" class=""><strong>Metric</strong></td><td id="Q^&lt;K" class=""><strong>Original BVH</strong></td><td id="vGbS" class=""><strong>Optimized BVH</strong></td><td id="ohwk" class=""><strong>Improvement</strong></td></tr><tr id="1bb0c3c3-e20a-80be-8e00-df408eb187ff"><td id="V@}w" class="">BVH Node Size</td><td id="Q^&lt;K" class="">80 bytes</td><td id="vGbS" class="">64 bytes</td><td id="ohwk" class="">20% smaller</td></tr><tr id="1bb0c3c3-e20a-808e-94c4-e903b8fc5922"><td id="V@}w" class="">Total BVH Memory</td><td id="Q^&lt;K" class="">80N bytes</td><td id="vGbS" class="">64N bytes</td><td id="ohwk" class="">20% savings</td></tr><tr id="1bb0c3c3-e20a-8077-ab9e-d756b697f6d8"><td id="V@}w" class="">Primitive Storage</td><td id="Q^&lt;K" class="">8P bytes (duplicated)</td><td id="vGbS" class="">8P bytes (single vector)</td><td id="ohwk" class="">Avoids duplication</td></tr><tr id="1bb0c3c3-e20a-802a-9cf1-dc149179b7ae"><td id="V@}w" class="">Total Memory Usage</td><td id="Q^&lt;K" class="">80N + 8P</td><td id="vGbS" class="">64N + 8P</td><td id="ohwk" class="">20% BVH node reduction, deduplicated primitive storage</td></tr></tbody></table><p id="1bb0c3c3-e20a-80e8-b344-dd49052254b7" class="">Overall:</p><ol type="1" id="1bb0c3c3-e20a-8041-bfd0-e32778738c5e" class="numbered-list" start="1"><li>Fewer pointers per node (using integer indices rather than raw pointers).</li></ol><ol type="1" id="1bb0c3c3-e20a-80e7-bdab-f62ba3d66bcf" class="numbered-list" start="2"><li>No redundant storage of primitive pointers in each leaf node.</li></ol><ol type="1" id="1bb0c3c3-e20a-80ea-9d8f-c6fc945624d1" class="numbered-list" start="3"><li>More cache-friendly layout: The contiguous vector of primitives improves cache locality.</li></ol><ol type="1" id="1bb0c3c3-e20a-8085-ad89-d42e68e44314" class="numbered-list" start="4"><li>Avoids heap fragmentation: Fewer dynamic memory allocations mean better memory utilization.</li></ol><ol type="1" id="1bb0c3c3-e20a-80eb-9787-ed7948f8a183" class="numbered-list" start="5"><li>This alsp improves cache efficiency, reduces pointer chasing, and speeds up ray traversal.</li></ol><h2 id="1bb0c3c3-e20a-80f3-aa7c-e53ef19ce421" class=""><strong>Surface Area Heuristic</strong></h2><ul id="1bb0c3c3-e20a-805b-9a42-df45fb899bea" class="bulleted-list"><li style="list-style-type:disc">Implement the surface area heuristic for splitting in your BVH. Take some performance measurements on various scenes to determine when it performs better than more naive heuristics.</li></ul><p id="1bc0c3c3-e20a-8051-a6fa-da90caaeec9f" class="">The <strong>key idea</strong> behind SAH is to choose the best split at each node based on <strong>minimizing the expected ray intersection cost</strong>, leading to <strong>fewer intersection tests and faster rendering</strong>. While SAH increases BVH construction time, it significantly reduces ray traversal costs, making it particularly beneficial for <strong>scenes with complex geometry and irregular object distributions</strong>.</p><p id="1bc0c3c3-e20a-8038-9058-c0403a6c63b1" class="">Naive BVH construction techniques often use simple heuristics such as:</p><ul id="1bc0c3c3-e20a-8087-b007-d515b0fb71cd" class="bulleted-list"><li style="list-style-type:disc"><strong>Midpoint Splitting:</strong> Divide the primitives at the median of their bounding box centroids along the longest axis.</li></ul><ul id="1bc0c3c3-e20a-80c6-8c81-d851e8e04361" class="bulleted-list"><li style="list-style-type:disc"><strong>Equal Count Splitting:</strong> Assign half of the primitives to each side without considering their spatial distribution.</li></ul><p id="1bc0c3c3-e20a-809c-b097-c8304f3f5929" class="">While these methods ensure balanced trees, they often fail to minimize intersection tests. The problem arises when large bounding boxes overlap significantly, causing rays to traverse multiple subtrees unnecessarily. And when Primitive distributions are highly non-uniform, leading to one subtree with a high number of primitives, increasing intersection costs.</p><p id="1bc0c3c3-e20a-8045-96ad-dae9d0b033ce" class="">SAH addresses these issues by computing a <strong>cost function</strong> that estimates the number of ray intersections per split. Instead of splitting at a fixed midpoint, SAH <strong>evaluates multiple potential splits</strong> and selects the one that minimizes this expected cost.</p><p id="1bc0c3c3-e20a-8024-8b22-c1ca0601bdb1" class=""><strong>SAH Cost Function</strong></p><p id="1bc0c3c3-e20a-8011-9e65-c17d533e55cc" class="">For a given node, SAH defines a cost function:</p><figure id="1bc0c3c3-e20a-8099-9e0e-ea516a8ba70a" class="image"><a href="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/image%202.png"><img style="width:709.96875px" src="CS184%20Spring%202024%20Homework%203%20Writeup%201b80c3c3e20a8026bec2e8b8b7a82612/image%202.png"/></a></figure><p id="1bc0c3c3-e20a-803a-81e5-fa7af8e0ca7c" class="">By evaluating this cost function at multiple split positions, we ensure that each node minimizes <strong>the expected number of ray intersections</strong>.</p><h3 id="1bc0c3c3-e20a-80cb-b121-ea96f35225dc" class=""><strong>Implementing SAH-Based BVH Construction</strong></h3><p id="1bc0c3c3-e20a-80f4-bcd8-eebc6ae10e04" class="">To integrate SAH into our BVH construction, we modified the splitting strategy as follows:</p><ol type="1" id="1bc0c3c3-e20a-806c-ad42-c0b8a4e02112" class="numbered-list" start="1"><li>Compute the Bounding Box: Determine the axis-aligned bounding box of all primitives in the current node. If the number of primitives is below a threshold, create a leaf node.</li></ol><ol type="1" id="1bc0c3c3-e20a-8009-8c63-dc991a3cfb81" class="numbered-list" start="2"><li>Determine Candidate Splits: Consider each of the three axes (X, Y, Z) as a potential split direction. Sort primitives based on their centroid coordinates along the axis. Identify candidate split positions between primitive centroids.</li></ol><ol type="1" id="1bc0c3c3-e20a-8059-b2e4-cc3e25e00632" class="numbered-list" start="3"><li>Precompute Bounding Box Information: Use prefix and suffix scans to precompute bounding boxes for left and right partitions. This allows us to compute the SAH cost efficiently for multiple splits.</li></ol><ol type="1" id="1bc0c3c3-e20a-8057-b166-d65723608766" class="numbered-list" start="4"><li>Evaluate SAH Cost for Each Split: Compute the bounding box surface area and number of primitives in each partition. Calculate the SAH cost using the formula mentioned above.Track the best split (axis and position) that results in the lowest SAH cost.</li></ol><ol type="1" id="1bc0c3c3-e20a-8032-a56a-f33cfd96f212" class="numbered-list" start="5"><li>Compare Against Leaf Cost: Compute the cost of keeping the node unsplit (i.e., testing all primitives in this node). If splitting does not improve efficiency, keep all primitives in a leaf node.</li></ol><ol type="1" id="1bc0c3c3-e20a-803f-83b5-cee1650473d1" class="numbered-list" start="6"><li>Partition the Primitives and Recur: If splitting is beneficial, partition the primitives into two groups. Recursively apply the BVH construction process to the left and right subtrees.</li></ol><p id="1bc0c3c3-e20a-80ca-b83a-e6cb381c1302" class="">By following this method, we ensure that each BVH node is optimally split, leading to a more efficient tree with reduced traversal cost.</p><h3 id="1bc0c3c3-e20a-803f-9ad6-e0a396dd28ad" class="">Performance comparisons</h3><p id="1bc0c3c3-e20a-8008-88d4-c299a3f9cb49" class="">measured at -s 64 -l 16 -m 5</p><table id="1bc0c3c3-e20a-80b3-a494-c71de39bde3e" class="simple-table"><tbody><tr id="1bc0c3c3-e20a-806f-b8bd-ebfc578e5ce6"><td id="H`cd" class="">.dae</td><td id="hUh@" class="">Naive Heuristic Render time (Seconds)</td><td id="@E=_" class="">SAH Render time</td><td id="&gt;Rd\" class="">Naive construction time</td><td id="dZjC" class="">SAH construction time</td><td id="&lt;WpA" class="">primitives</td></tr><tr id="1bc0c3c3-e20a-800d-a272-e9bb2a605144"><td id="H`cd" class="">CBspheres</td><td id="hUh@" class="">37</td><td id="@E=_" class="">48</td><td id="&gt;Rd\" class=""></td><td id="dZjC" class="">0</td><td id="&lt;WpA" class="">14</td></tr><tr id="1bc0c3c3-e20a-8083-a27c-e9c7779d7d87"><td id="H`cd" class="">CBbunny</td><td id="hUh@" class="">36</td><td id="@E=_" class="">37</td><td id="&gt;Rd\" class="">0.01</td><td id="dZjC" class="">0.1</td><td id="&lt;WpA" class="">~28000</td></tr><tr id="1bc0c3c3-e20a-80a4-969e-e5993aaee5c5"><td id="H`cd" class="">maxplanck</td><td id="hUh@" class="">4.2</td><td id="@E=_" class="">1.6</td><td id="&gt;Rd\" class="">0.01</td><td id="dZjC" class="">0.3</td><td id="&lt;WpA" class="">~50000</td></tr><tr id="1bc0c3c3-e20a-80fd-8942-ef4f0d11b993"><td id="H`cd" class="">dragon</td><td id="hUh@" class="">16</td><td id="@E=_" class="">13</td><td id="&gt;Rd\" class="">0.04</td><td id="dZjC" class="">0.9</td><td id="&lt;WpA" class="">~10000</td></tr><tr id="1bc0c3c3-e20a-809d-884b-eb75d0743195"><td id="H`cd" class="">CBlucy</td><td id="hUh@" class="">51</td><td id="@E=_" class="">45</td><td id="&gt;Rd\" class="">0.05</td><td id="dZjC" class="">1.2</td><td id="&lt;WpA" class="">~130000</td></tr></tbody></table><p id="1bc0c3c3-e20a-80af-a784-ef136982a9bd" class="">Based on the timing comparison, SAH increases construction time by a lot due to sorting and split evaluation overhead. However, this cost is one-time and amortized over many rendering frames. So, in a scene with only a handful of objects, SAH is NOT better - the extra sorting and SAH cost evaluation overhead does not provide meaningful savings when there are too few primitives.</p><p id="1bc0c3c3-e20a-80ac-856f-ec98e6725235" class="">However, SAH significantly reduced the number of intersection tests. This is most noticeable in clustered and occluded scenes, where naive heuristics perform poorly. This is becausse in occluded scenes, rays are blocked early. If the BVH is optimized to keep bounding volumes small and tight, rays quickly terminate. Naive splits could lead to large, overlapping bounding boxes, forcing rays to check more objects before terminating.</p><p id="1bc0c3c3-e20a-80b4-9730-e269798213c9" class="">Overall, SAH-based BVH splitting demonstrated significant improvements in ray traversal efficiency at the cost of increased BVH construction time. This makes SAH highly beneficial for offline rendering and path tracing,.</p><h2 id="1bb0c3c3-e20a-8002-979f-ca1b0fa017af" class="">K-d tree</h2><ul id="1bb0c3c3-e20a-8058-996d-f36e940d1646" class="bulleted-list"><li style="list-style-type:disc">Research alternative acceleration structures (k-d tree, octree, etc.) and implement one you think might be faster than the BVH. Take some measurements to compare performance of the two structures. Note that many of these structures partition space into disjoint subsets (rather than potentially overlapping boxes as in the BVH) and thus have trickier traversal code than the BVH.</li></ul><p id="1bb0c3c3-e20a-804f-bdfd-c6bb34362b4d" class="">To improve the performance of the path tracer, I implemented a KD-Tree as an alternative acceleration structure to the existing Bounding Volume Hierarchy (BVH) adding files kdtree.cpp and kdtree.h and modifying necessary files to use kdtree instead of bvh. </p><p id="1bc0c3c3-e20a-8092-ba9c-da9070078a10" class="">The original BVH structure partitions primitives into axis-aligned bounding boxes, sometimes overlapping, resulting in simpler traversal but possibly redundant intersection tests. In contrast, a KD-tree recursively partitions 3D space into strictly non-overlapping regions using axis-aligned splitting planes. This typically reduces intersection tests by ensuring each spatial region contains fewer primitives and each primitive belongs exclusively to one region.</p><h3 id="1bc0c3c3-e20a-8095-9e0a-ce0af3be7e94" class="">Implementation Details</h3><ul id="1bc0c3c3-e20a-80c8-bf0c-c0582fa7d50b" class="bulleted-list"><li style="list-style-type:disc"><strong>Tree Construction - </strong>The KD-Tree was implemented by recursively partitioning space along an axis (X, Y, or Z) at an optimal split position. The main challenge was determining the best split position to minimize traversal cost.</li></ul><ol type="1" id="1bb0c3c3-e20a-809b-8397-d294dc24a4e2" class="numbered-list" start="1"><li><strong>Choosing a Split Axis: </strong>The longest axis of the bounding box was chosen for partitioning. If the X-axis is longest, we split along X; if Y is longest, we split along Y, and so on.</li></ol><ol type="1" id="1bb0c3c3-e20a-80f8-a548-cd3d6cd76222" class="numbered-list" start="2"><li><strong>Choosing the Split Position: </strong>The split was chosen at the median primitive centroid.If all primitives fell on one side of the split, we adjusted the partition.</li></ol><ol type="1" id="1bb0c3c3-e20a-80db-bf9a-dd063e6524f6" class="numbered-list" start="3"><li><strong>Leaf Node Condition: </strong>If the number of primitives at a node fell below a threshold (e.g., <code>max_leaf_size</code>), the node became a leaf.</li></ol><h3 id="1bb0c3c3-e20a-8052-9b74-d2e1925984f1" class=""><strong>Ray Traversal in KD-Tree</strong></h3><ul id="1bc0c3c3-e20a-8000-86db-c6474ad155a7" class="bulleted-list"><li style="list-style-type:disc"><strong>Traversal Algorithm</strong>: During ray intersection, the KD-tree was traversed by recursively checking bounding boxes of child nodes. Intersection tests terminated early if the bounding box was missed, significantly reducing unnecessary primitive intersection computations.</li></ul><p id="1bb0c3c3-e20a-80fe-a687-e51e4f540fc0" class="">Unlike BVH, where nodes may overlap, KD-Tree partitions are disjoint, meaning a ray only needs to check one side at a time. The traversal is as follows:</p><ol type="1" id="1bb0c3c3-e20a-8036-8745-de9b0243cbfc" class="numbered-list" start="1"><li>Checks if the ray intersects the current node&#x27;s bounding box.</li></ol><ol type="1" id="1bb0c3c3-e20a-8078-9e0a-ef6fba6d3839" class="numbered-list" start="2"><li>If it&#x27;s a leaf, test against all primitives in the node.</li></ol><ol type="1" id="1bb0c3c3-e20a-80fb-a306-ff05f66c1702" class="numbered-list" start="3"><li>If it&#x27;s an internal node, determine which side to traverse first.</li></ol><ol type="1" id="1bb0c3c3-e20a-808a-9bd3-f307b1311482" class="numbered-list" start="4"><li>If the ray crosses the splitting plane, traverse the second side only if needed.</li></ol><h2 id="1bb0c3c3-e20a-8004-af49-e2e8d75432c3" class=""><strong>Performance Comparison</strong></h2><p id="1bb0c3c3-e20a-8069-8724-dcb8dee31209" class="">I ran both BVH and KD-Tree on on a bunch of dae files with 64 samples per pixel, max ray depth of 5, and 32 sample per light.</p><h3 id="1bb0c3c3-e20a-80aa-8b85-e8a487e18278" class=""><strong>Timing Results</strong></h3><table id="1bb0c3c3-e20a-80d7-99ff-c1d01f8bfb8d" class="simple-table"><tbody><tr id="1bb0c3c3-e20a-80c8-ac30-e948f7471b0b"><td id="H`cd" class="">.dae</td><td id="hUh@" class=""><strong>BVH Render Time (seconds) </strong></td><td id="@E=_" class=""><strong>Kdtree Render Time (seconds)</strong></td><td id="&lt;WpA" class="">primitives</td></tr><tr id="1bb0c3c3-e20a-80a1-9a40-e75a6a91f637"><td id="H`cd" class="">CBbunny</td><td id="hUh@" class="">70</td><td id="@E=_" class="">52</td><td id="&lt;WpA" class="">~28000</td></tr><tr id="1bb0c3c3-e20a-8010-8c39-e91d08460bcc"><td id="H`cd" class="">CBlucy</td><td id="hUh@" class="">95</td><td id="@E=_" class="">68</td><td id="&lt;WpA" class="">~130000</td></tr><tr id="1bb0c3c3-e20a-8066-8638-e48931ad7f8f"><td id="H`cd" class="">maxplanck</td><td id="hUh@" class="">26</td><td id="@E=_" class="">19</td><td id="&lt;WpA" class="">~50000</td></tr></tbody></table><p id="1bb0c3c3-e20a-80ba-8932-fdd0ee56da82" class="">Overall, the KD-Tree was about 1.5x faster in render time.</p><p id="1bc0c3c3-e20a-8001-a9dc-eb81f7a4d420" class="">Implementing the KD-tree significantly reduced rendering times due to fewer intersection tests resulting from stricter spatial partitioning. KD-trees proved to be more efficient than BVH for all tested scenes, especially scenes with a larger number of primitives, clearly demonstrating their advantages in accelerating ray-tracing operations.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
