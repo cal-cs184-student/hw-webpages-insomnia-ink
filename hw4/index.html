@@ -1,109 +1,721 @@
-<html>
-	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-		<style>
-			h1 {
-				text-align: center;
-			}
-
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
-
-			figure {
-				text-align: center;
-			}
-
-			img {
-				display: inline-block;
-			}
-
-			body {
-				font-family: 'Inter', sans-serif;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-		<h1>CS184/284A Spring 2025 Homework 4 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
-
-		<br>
-
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-
-		<br>
-
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-
-		<figure>
-			<img src="clothsim.png" alt="Cloth draped over sphere" style="width:70%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
-
-		<!--
-		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
-
-		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
-		<h2>Part 1: Masses and springs</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="clothsim.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
-
-		<h2>Part 2: Simulation via numerical integration</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 3: Handling collisions with other objects</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 4: Handling self-collisions</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Part 5: Shaders</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Part 6: Extra Credit - Additional cloth simulation features!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>CS184 HW4 Writeup</title><style>
+	/* cspell:disable-file */
+	/* webkit printing magic: print all background colors */
+	html {
+		-webkit-print-color-adjust: exact;
+	}
+	* {
+		box-sizing: border-box;
+		-webkit-print-color-adjust: exact;
+	}
+	
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	@media only screen {
+		body {
+			margin: 2em auto;
+			max-width: 900px;
+			color: rgb(55, 53, 47);
+		}
+	}
+	
+	body {
+		line-height: 1.5;
+		white-space: pre-wrap;
+	}
+	
+	a,
+	a.visited {
+		color: inherit;
+		text-decoration: underline;
+	}
+	
+	.pdf-relative-link-path {
+		font-size: 80%;
+		color: #444;
+	}
+	
+	h1,
+	h2,
+	h3 {
+		letter-spacing: -0.01em;
+		line-height: 1.2;
+		font-weight: 600;
+		margin-bottom: 0;
+	}
+	
+	.page-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		margin-top: 0;
+		margin-bottom: 0.75em;
+	}
+	
+	h1 {
+		font-size: 1.875rem;
+		margin-top: 1.875rem;
+	}
+	
+	h2 {
+		font-size: 1.5rem;
+		margin-top: 1.5rem;
+	}
+	
+	h3 {
+		font-size: 1.25rem;
+		margin-top: 1.25rem;
+	}
+	
+	.source {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		padding: 1.5em;
+		word-break: break-all;
+	}
+	
+	.callout {
+		border-radius: 3px;
+		padding: 1rem;
+	}
+	
+	figure {
+		margin: 1.25em 0;
+		page-break-inside: avoid;
+	}
+	
+	figcaption {
+		opacity: 0.5;
+		font-size: 85%;
+		margin-top: 0.5em;
+	}
+	
+	mark {
+		background-color: transparent;
+	}
+	
+	.indented {
+		padding-left: 1.5em;
+	}
+	
+	hr {
+		background: transparent;
+		display: block;
+		width: 100%;
+		height: 1px;
+		visibility: visible;
+		border: none;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+	}
+	
+	img {
+		max-width: 100%;
+	}
+	
+	@media only print {
+		img {
+			max-height: 100vh;
+			object-fit: contain;
+		}
+	}
+	
+	@page {
+		margin: 1in;
+	}
+	
+	.collection-content {
+		font-size: 0.875rem;
+	}
+	
+	.column-list {
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	.column {
+		padding: 0 1em;
+	}
+	
+	.column:first-child {
+		padding-left: 0;
+	}
+	
+	.column:last-child {
+		padding-right: 0;
+	}
+	
+	.table_of_contents-item {
+		display: block;
+		font-size: 0.875rem;
+		line-height: 1.3;
+		padding: 0.125rem;
+	}
+	
+	.table_of_contents-indent-1 {
+		margin-left: 1.5rem;
+	}
+	
+	.table_of_contents-indent-2 {
+		margin-left: 3rem;
+	}
+	
+	.table_of_contents-indent-3 {
+		margin-left: 4.5rem;
+	}
+	
+	.table_of_contents-link {
+		text-decoration: none;
+		opacity: 0.7;
+		border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+	}
+	
+	table,
+	th,
+	td {
+		border: 1px solid rgba(55, 53, 47, 0.09);
+		border-collapse: collapse;
+	}
+	
+	table {
+		border-left: none;
+		border-right: none;
+	}
+	
+	th,
+	td {
+		font-weight: normal;
+		padding: 0.25em 0.5em;
+		line-height: 1.5;
+		min-height: 1.5em;
+		text-align: left;
+	}
+	
+	th {
+		color: rgba(55, 53, 47, 0.6);
+	}
+	
+	ol,
+	ul {
+		margin: 0;
+		margin-block-start: 0.6em;
+		margin-block-end: 0.6em;
+	}
+	
+	li > ol:first-child,
+	li > ul:first-child {
+		margin-block-start: 0.6em;
+	}
+	
+	ul > li {
+		list-style: disc;
+	}
+	
+	ul.to-do-list {
+		padding-inline-start: 0;
+	}
+	
+	ul.to-do-list > li {
+		list-style: none;
+	}
+	
+	.to-do-children-checked {
+		text-decoration: line-through;
+		opacity: 0.375;
+	}
+	
+	ul.toggle > li {
+		list-style: none;
+	}
+	
+	ul {
+		padding-inline-start: 1.7em;
+	}
+	
+	ul > li {
+		padding-left: 0.1em;
+	}
+	
+	ol {
+		padding-inline-start: 1.6em;
+	}
+	
+	ol > li {
+		padding-left: 0.2em;
+	}
+	
+	.mono ol {
+		padding-inline-start: 2em;
+	}
+	
+	.mono ol > li {
+		text-indent: -0.4em;
+	}
+	
+	.toggle {
+		padding-inline-start: 0em;
+		list-style-type: none;
+	}
+	
+	/* Indent toggle children */
+	.toggle > li > details {
+		padding-left: 1.7em;
+	}
+	
+	.toggle > li > details > summary {
+		margin-left: -1.1em;
+	}
+	
+	.selected-value {
+		display: inline-block;
+		padding: 0 0.5em;
+		background: rgba(206, 205, 202, 0.5);
+		border-radius: 3px;
+		margin-right: 0.5em;
+		margin-top: 0.3em;
+		margin-bottom: 0.3em;
+		white-space: nowrap;
+	}
+	
+	.collection-title {
+		display: inline-block;
+		margin-right: 1em;
+	}
+	
+	.page-description {
+		margin-bottom: 2em;
+	}
+	
+	.simple-table {
+		margin-top: 1em;
+		font-size: 0.875rem;
+		empty-cells: show;
+	}
+	.simple-table td {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table th {
+		height: 29px;
+		min-width: 120px;
+	}
+	
+	.simple-table-header-color {
+		background: rgb(247, 246, 243);
+		color: black;
+	}
+	.simple-table-header {
+		font-weight: 500;
+	}
+	
+	time {
+		opacity: 0.5;
+	}
+	
+	.icon {
+		display: inline-block;
+		max-width: 1.2em;
+		max-height: 1.2em;
+		text-decoration: none;
+		vertical-align: text-bottom;
+		margin-right: 0.5em;
+	}
+	
+	img.icon {
+		border-radius: 3px;
+	}
+	
+	.user-icon {
+		width: 1.5em;
+		height: 1.5em;
+		border-radius: 100%;
+		margin-right: 0.5rem;
+	}
+	
+	.user-icon-inner {
+		font-size: 0.8em;
+	}
+	
+	.text-icon {
+		border: 1px solid #000;
+		text-align: center;
+	}
+	
+	.page-cover-image {
+		display: block;
+		object-fit: cover;
+		width: 100%;
+		max-height: 30vh;
+	}
+	
+	.page-header-icon {
+		font-size: 3rem;
+		margin-bottom: 1rem;
+	}
+	
+	.page-header-icon-with-cover {
+		margin-top: -0.72em;
+		margin-left: 0.07em;
+	}
+	
+	.page-header-icon img {
+		border-radius: 3px;
+	}
+	
+	.link-to-page {
+		margin: 1em 0;
+		padding: 0;
+		border: none;
+		font-weight: 500;
+	}
+	
+	p > .user {
+		opacity: 0.5;
+	}
+	
+	td > .user,
+	td > time {
+		white-space: nowrap;
+	}
+	
+	input[type="checkbox"] {
+		transform: scale(1.5);
+		margin-right: 0.6em;
+		vertical-align: middle;
+	}
+	
+	p {
+		margin-top: 0.5em;
+		margin-bottom: 0.5em;
+	}
+	
+	.image {
+		border: none;
+		margin: 1.5em 0;
+		padding: 0;
+		border-radius: 0;
+		text-align: center;
+	}
+	
+	.code,
+	code {
+		background: rgba(135, 131, 120, 0.15);
+		border-radius: 3px;
+		padding: 0.2em 0.4em;
+		border-radius: 3px;
+		font-size: 85%;
+		tab-size: 2;
+	}
+	
+	code {
+		color: #eb5757;
+	}
+	
+	.code {
+		padding: 1.5em 1em;
+	}
+	
+	.code-wrap {
+		white-space: pre-wrap;
+		word-break: break-all;
+	}
+	
+	.code > code {
+		background: none;
+		padding: 0;
+		font-size: 100%;
+		color: inherit;
+	}
+	
+	blockquote {
+		font-size: 1.25em;
+		margin: 1em 0;
+		padding-left: 1em;
+		border-left: 3px solid rgb(55, 53, 47);
+	}
+	
+	.bookmark {
+		text-decoration: none;
+		max-height: 8em;
+		padding: 0;
+		display: flex;
+		width: 100%;
+		align-items: stretch;
+	}
+	
+	.bookmark-title {
+		font-size: 0.85em;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		height: 1.75em;
+		white-space: nowrap;
+	}
+	
+	.bookmark-text {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.bookmark-info {
+		flex: 4 1 180px;
+		padding: 12px 14px 14px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	
+	.bookmark-image {
+		width: 33%;
+		flex: 1 1 180px;
+		display: block;
+		position: relative;
+		object-fit: cover;
+		border-radius: 1px;
+	}
+	
+	.bookmark-description {
+		color: rgba(55, 53, 47, 0.6);
+		font-size: 0.75em;
+		overflow: hidden;
+		max-height: 4.5em;
+		word-break: break-word;
+	}
+	
+	.bookmark-href {
+		font-size: 0.75em;
+		margin-top: 0.25em;
+	}
+	
+	.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+	.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+	.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+	.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+	.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+	.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+	.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+	.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+	.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+	.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+	.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+	.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+	.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+	.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+	.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+	.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+	.highlight-default {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.highlight-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.highlight-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.highlight-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.highlight-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.highlight-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.highlight-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.highlight-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.highlight-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.highlight-default_background {
+		color: rgba(55, 53, 47, 1);
+	}
+	.highlight-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.highlight-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.highlight-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.highlight-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.highlight-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.highlight-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.highlight-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.highlight-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.highlight-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.block-color-default {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray {
+		color: rgba(120, 119, 116, 1);
+		fill: rgba(120, 119, 116, 1);
+	}
+	.block-color-brown {
+		color: rgba(159, 107, 83, 1);
+		fill: rgba(159, 107, 83, 1);
+	}
+	.block-color-orange {
+		color: rgba(217, 115, 13, 1);
+		fill: rgba(217, 115, 13, 1);
+	}
+	.block-color-yellow {
+		color: rgba(203, 145, 47, 1);
+		fill: rgba(203, 145, 47, 1);
+	}
+	.block-color-teal {
+		color: rgba(68, 131, 97, 1);
+		fill: rgba(68, 131, 97, 1);
+	}
+	.block-color-blue {
+		color: rgba(51, 126, 169, 1);
+		fill: rgba(51, 126, 169, 1);
+	}
+	.block-color-purple {
+		color: rgba(144, 101, 176, 1);
+		fill: rgba(144, 101, 176, 1);
+	}
+	.block-color-pink {
+		color: rgba(193, 76, 138, 1);
+		fill: rgba(193, 76, 138, 1);
+	}
+	.block-color-red {
+		color: rgba(212, 76, 71, 1);
+		fill: rgba(212, 76, 71, 1);
+	}
+	.block-color-default_background {
+		color: inherit;
+		fill: inherit;
+	}
+	.block-color-gray_background {
+		background: rgba(248, 248, 247, 1);
+	}
+	.block-color-brown_background {
+		background: rgba(244, 238, 238, 1);
+	}
+	.block-color-orange_background {
+		background: rgba(251, 236, 221, 1);
+	}
+	.block-color-yellow_background {
+		background: rgba(251, 243, 219, 1);
+	}
+	.block-color-teal_background {
+		background: rgba(237, 243, 236, 1);
+	}
+	.block-color-blue_background {
+		background: rgba(231, 243, 248, 1);
+	}
+	.block-color-purple_background {
+		background: rgba(248, 243, 252, 1);
+	}
+	.block-color-pink_background {
+		background: rgba(252, 241, 246, 1);
+	}
+	.block-color-red_background {
+		background: rgba(253, 235, 236, 1);
+	}
+	.select-value-color-uiBlue { background-color: undefined; }
+	.select-value-color-pink { background-color: rgba(225, 136, 179, 0.27); }
+	.select-value-color-purple { background-color: rgba(168, 129, 197, 0.27); }
+	.select-value-color-green { background-color: rgba(123, 183, 129, 0.27); }
+	.select-value-color-gray { background-color: rgba(84, 72, 49, 0.15); }
+	.select-value-color-transparentGray { background-color: undefined; }
+	.select-value-color-translucentGray { background-color: undefined; }
+	.select-value-color-orange { background-color: rgba(224, 124, 57, 0.27); }
+	.select-value-color-brown { background-color: rgba(210, 162, 141, 0.35); }
+	.select-value-color-red { background-color: rgba(244, 171, 159, 0.4); }
+	.select-value-color-yellow { background-color: rgba(236, 191, 66, 0.39); }
+	.select-value-color-blue { background-color: rgba(93, 165, 206, 0.27); }
+	.select-value-color-pageGlass { background-color: undefined; }
+	.select-value-color-washGlass { background-color: undefined; }
+	
+	.checkbox {
+		display: inline-flex;
+		vertical-align: text-bottom;
+		width: 16;
+		height: 16;
+		background-size: 16px;
+		margin-left: 2px;
+		margin-right: 5px;
+	}
+	
+	.checkbox-on {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
+	
+	.checkbox-off {
+		background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+	}
 		
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
-		</div>
-	</body>
-</html>
+	</style></head><body><article id="1c70c3c3-e20a-80fe-a7f4-e8021ac4a27e" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1697971741569-b9009f2847cc?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🌂</span></div><h1 class="page-title">CS184 HW4 Writeup</h1><p class="page-description"></p></header><div class="page-body"><blockquote id="1c70c3c3-e20a-8099-bf90-d9ad2f14f0d0" class="">Names: Sampurn Bhowmick</blockquote><p id="1c70c3c3-e20a-80e3-95e2-cea5ba5ea654" class="">Link to webpage:<a href="https://cal-cs184-student.github.io/hw-webpages-insomnia-ink/"> https://cal-cs184-student.github.io/hw-webpages-insomnia-ink/</a></p><p id="1c70c3c3-e20a-809b-ab6f-e41d8fec2b3b" class="">Link to GitHub repository: <a href="https://github.com/cal-cs184-student/sp25-hw4-clothism-chronicles">https://github.com/cal-cs184-student/sp25-hw4-clothism-chronicles</a></p><p id="1c70c3c3-e20a-8081-9ed2-c15e45f88969" class="">
+	</p><h3 id="1c70c3c3-e20a-80f6-b828-da5453a34094" class="">Cloth Sim Overview</h3><p id="1d00c3c3-e20a-80b0-acf3-e6759a75a5e1" class="">In this homeword, I built a cloth simulation system using a mass-spring model with support for collisions, self-collisions, and real-time rendering via GLSL shaders. I implemented lighting models like diffuse and Blinn-Phong, added texture, bump, and displacement mapping, and built a mirror and a custom liquid shader.</p><p id="1d00c3c3-e20a-80ec-9c5a-e6aba6979203" class="">Through this assignment, I learned how physical simulation and graphics shaders work together to create realistic, interactive visuals. It was especially rewarding to see the cloth respond naturally to forces and light in real time.</p><h2 id="1c70c3c3-e20a-80fb-be69-e12f52b63276" class="">Part 1: Masses and Springs</h2><p id="1c70c3c3-e20a-80cd-bb26-f2241d130a8e" class=""><em>scene/pinned2.json</em></p><p id="1c70c3c3-e20a-80bd-bb6c-c1c2efdc0ef4" class="">With all constraints:</p><div id="1c70c3c3-e20a-8013-969c-d1b77125edb3" class="column-list"><div id="1c70c3c3-e20a-80ff-8801-cb8627197317" style="width:50%" class="column"><figure id="1c70c3c3-e20a-8053-8699-d28a6f569291" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.14.01_AM.png"><img style="width:432px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.14.01_AM.png"/></a></figure></div><div id="1c70c3c3-e20a-8004-9119-e50e61b61b51" style="width:50%" class="column"><figure id="1c70c3c3-e20a-803e-9a5d-d810a7e0d654" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.25.42_AM.png"><img style="width:2112px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.25.42_AM.png"/></a></figure></div></div><p id="1c70c3c3-e20a-80e8-8dec-d4352020847d" class="">Shearing constraint:</p><div id="1c70c3c3-e20a-80fe-b9fa-f552c8912262" class="column-list"><div id="1c70c3c3-e20a-80f3-89eb-fd91b191bc65" style="width:50%" class="column"><figure id="1c70c3c3-e20a-80de-a4a5-c2d6f7778ef3" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.14.21_AM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.14.21_AM.png"/></a><figcaption>No Shearing</figcaption></figure></div><div id="1c70c3c3-e20a-8086-bf4d-c5917d3e2a4d" style="width:50%" class="column"><figure id="1c70c3c3-e20a-80c2-bf4e-f264b0cf8081" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.14.33_AM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-03-31_at_10.14.33_AM.png"/></a><figcaption>Only Shearing</figcaption></figure></div></div><h2 id="1c70c3c3-e20a-8040-a8da-ea9dead3e68e" class="">Part 2: <strong>Simulation via numerical integration</strong></h2><p id="1ce0c3c3-e20a-8031-a17e-d1312df78d1d" class=""><strong>Default:</strong> 5000N/m ks, 15g/cm^2 density and 0.2% damping</p><figure id="1ce0c3c3-e20a-802f-946d-c38baaf5c0c3" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image.png"><img style="width:648.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image.png"/></a></figure><p id="1ce0c3c3-e20a-809e-9e9d-d71a2c273958" class="">At default ks, density and damping, the cloth falls naturally from the two pinned corners and settles into a curved shape due to gravity and spring constraints. The surface forms visible waves and folds as it sags downward. The simulation is stable, and there is minimal jitter after coming to rest.</p><h3 id="1ce0c3c3-e20a-8012-92c9-f0e3dfa10050" class="">K experiments</h3><p id="1ce0c3c3-e20a-80c3-a083-c93400dfcc3e" class=""><strong>Low k 50-500N/m</strong></p><div id="1ce0c3c3-e20a-806b-84de-c82233f3898b" class="column-list"><div id="1ce0c3c3-e20a-8068-bd4d-d9b5b57b3f4c" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-80c8-8014-f75127b672c3" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%201.png"><img style="width:648.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%201.png"/></a><figcaption>500N/m</figcaption></figure></div><div id="1ce0c3c3-e20a-808a-8c4e-f5bfc36face9" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-8084-ae6e-e94fef7ddb21" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%202.png"><img style="width:648.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%202.png"/></a><figcaption>50N/m</figcaption></figure></div></div><p id="1ce0c3c3-e20a-80ef-9650-e4145da56b80" class="">At the default ks, the cloth has balanced stiffness and stretches realistically and stabilizes without snapping. While at low ks, the cloth stretches a lot and becomes floppy. It takes longer to come to rest and forms deeper folds. More sagging occurs in the middle.</p><p id="1ce0c3c3-e20a-807e-80bf-e417355923f0" class="">
+	</p><p id="1ce0c3c3-e20a-80c9-a804-efefbf96755f" class=""><strong>high k 50000N/m</strong></p><figure id="1ce0c3c3-e20a-80df-92c6-ca78ee6bb167" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%203.png"><img style="width:648.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%203.png"/></a></figure><p id="1ce0c3c3-e20a-8031-90df-c96151d15ac6" class="">At high ks, the cloth becomes very stiff. It barely stretches and appears rigid. Small vibrations take longer to settle down and create visible tension lines.</p><p id="1ce0c3c3-e20a-807e-aa71-d0b6c5ecc596" class="">
+	</p><p id="1ce0c3c3-e20a-8049-a4eb-d677c1704b6d" class=""><strong>Observation</strong>: Higher <code>ks</code> → stronger springs → less stretch, more tension.</p><p id="1ce0c3c3-e20a-80e6-8a64-c3cbea67dc81" class="">Lower <code>ks</code> → cloth feels looser, more like silk or plastic wrap.</p><h3 id="1ce0c3c3-e20a-805f-a5b0-fac944e54cc3" class=""><strong>Density Experiments</strong></h3><p id="1ce0c3c3-e20a-808a-a206-d7b04e237f5f" class=""><strong>Low density (5g/cm^2)</strong></p><figure id="1ce0c3c3-e20a-8098-a9c4-f27b8ba70959" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%204.png"><img style="width:648.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%204.png"/></a></figure><p id="1ce0c3c3-e20a-80b9-8bc1-cc666f777be2" class="">
+	</p><p id="1ce0c3c3-e20a-80ff-aae6-d1c250cfbcee" class="">With low density, the cloth is light, falls more slowly, and flutters more. It bounces slightly when it reaches equilibrium.</p><p id="1ce0c3c3-e20a-806c-9c55-e99713b811f6" class=""><strong>High density (50 g.cm^2)</strong></p><figure id="1ce0c3c3-e20a-8074-a997-c5bd98c2bc1d" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%205.png"><img style="width:648.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%205.png"/></a></figure><p id="1ce0c3c3-e20a-80a3-8811-f404d27084d6" class="">At high density, the cloth feels heavy. It falls faster, stretches more under gravity, and has deeper sag. The cloth takes longer to settle and shows more exaggerated folds.</p><p id="1ce0c3c3-e20a-8094-aa51-e22dae6ddd09" class="">
+	</p><p id="1ce0c3c3-e20a-8029-9e9b-e4bbec72eb34" class=""><strong>Observation</strong>: Higher density means more mass per point → gravity pulls stronger → cloth sags more.</p><p id="1ce0c3c3-e20a-8084-ba44-e13e3dc48b03" class="">
+	</p><h3 id="1ce0c3c3-e20a-8014-a25e-cf5b6aef7278" class=""><strong>Damping experiments</strong></h3><p id="1ce0c3c3-e20a-80f3-9769-c694153ce088" class=""><strong>No damping (0%)</strong></p><div id="1ce0c3c3-e20a-80bf-a9c6-f4475f9d1aab" class="column-list"><div id="1ce0c3c3-e20a-8002-b7c7-c65244cf205f" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-8007-9585-ddf5dc13c38b" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%206.png"><img style="width:2032px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%206.png"/></a></figure><figure id="1ce0c3c3-e20a-808f-8074-e65038bb00b5" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%207.png"><img style="width:648.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%207.png"/></a></figure></div><div id="1ce0c3c3-e20a-80a8-bad0-f2347b9acef4" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-805a-b0b4-fabb7730e2b4" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%208.png"><img style="width:336px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%208.png"/></a></figure><figure id="1ce0c3c3-e20a-805f-8ee6-da23c567356b" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%209.png"><img style="width:648.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%209.png"/></a></figure></div></div><p id="1ce0c3c3-e20a-80b7-8e97-f004702d571a" class="">In the default damping, the cloth moves naturally and eventually comes to rest, showing smooth and realistic behavior. With no damping, it causes the cloth to jitter and bounce back and forth forever and it never settles.</p><p id="1ce0c3c3-e20a-8067-8395-ef122aa64f92" class=""><br/><br/><strong>High damping (1%)</strong></p><div id="1ce0c3c3-e20a-800b-9afa-e67b9cc137e7" class="column-list"><div id="1ce0c3c3-e20a-806f-8319-d186ed924da9" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-800c-ad33-c2f84ea2f97e" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2010.png"><img style="width:648.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2010.png"/></a></figure></div><div id="1ce0c3c3-e20a-804a-bcc6-d98d993ebeb8" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-807e-aeb5-fc87fcab940b" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2011.png"><img style="width:648.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2011.png"/></a></figure></div></div><p id="1ce0c3c3-e20a-80c0-9712-c97f1350b490" class="">The cloth falls very slowly and loses energy quickly. It settles fast and looks more “dead” as there is less to no fluttery motion.</p><p id="1ce0c3c3-e20a-8057-b93b-c4f441179013" class=""><strong>Observation:</strong> Damping controls energy loss. </p><p id="1ce0c3c3-e20a-8087-917d-f9815966c810" class="">Too little → infinite motion. Too much → lifeless cloth.</p><p id="1ca0c3c3-e20a-8026-969a-e3f341c7a90a" class="">
+	</p><p id="1ca0c3c3-e20a-805d-b275-e6f4df650614" class=""><em><strong>scene/pinned4.json</strong></em><strong> shaded cloth in its final resting state! </strong></p><figure id="1ce0c3c3-e20a-8016-a66a-d0e9f9229287" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2012.png"><img style="width:648.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2012.png"/></a></figure><p id="1ce0c3c3-e20a-80f5-b80e-d1347f8cfd6b" class="">
+	</p><h1 id="1ce0c3c3-e20a-80fb-bee6-f1c8cbb77e75" class="">Part 3: Handling collisions with other objects</h1><h3 id="1ce0c3c3-e20a-8073-880e-e22bcc809d1c" class=""><strong>Sphere Collisions</strong></h3><p id="1ce0c3c3-e20a-805d-ac4f-d62e7bd122a9" class="">I implemented cloth–sphere collision in <code>Sphere::collide</code>. Each <code>PointMass</code> is checked to see if it moved inside the sphere (i.e., closer to the center than the sphere&#x27;s radius). If it did, I calculated the nearest point on the sphere’s surface, called the <em>tangent point</em>. I then applied a correction vector from the mass’s previous position to this tangent point, scaled down by <code>(1 - friction)</code> to simulate resistance from surface interaction. This ensures the cloth does not get stuck inside the sphere and instead smoothly drapes over it</p><h3 id="1ce0c3c3-e20a-8063-a2c6-d0d5e12e01d1" class=""> <strong>Plane Collisions</strong></h3><p id="1ce0c3c3-e20a-808f-bd1c-c1bf816eaf63" class="">For plane collisions, I implemented <code>Plane::collide</code> by detecting whether a <code>PointMass</code> crossed the plane between time steps — i.e., if its dot product with the plane’s normal flipped signs. When this happens, I compute the tangent point of intersection along the linear path between the previous and current positions. I then gently bump the point back above the surface using a small <code>SURFACE_OFFSET</code>, again scaled by <code>(1 - friction)</code> to simulate surface drag. This allows the cloth to rest neatly on the plane without sinking below it.</p><p id="1ce0c3c3-e20a-80ea-a66e-ddddc9b60d2b" class="">
+	</p><p id="1ce0c3c3-e20a-809a-ab70-ca3bb37192d6" class=""><strong>Default ks = 5000N/m</strong></p><p id="1ce0c3c3-e20a-80f4-940b-cfcc9e0220ca" class="">At the default spring constant, the cloth gently falls and conforms naturally to the curvature of the sphere. The springs provide enough stiffness to hold folds and drape realistically over the surface, while still allowing some softness in the middle.</p><figure id="1ce0c3c3-e20a-808d-97f9-ee953ea23f06" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2013.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2013.png"/></a></figure><p id="1ce0c3c3-e20a-8062-9f72-f2af3f62d41a" class="">
+	</p><p id="1ce0c3c3-e20a-802a-8163-f723fbf3c801" class=""><strong>Low ks = 500N/m</strong></p><p id="1ce0c3c3-e20a-8000-b15d-ec35b6cbdf0b" class="">With a low spring constant, the cloth becomes very soft and stretchable. It sags deeply around the sphere, forming exaggerated folds and more deformation as the springs fail to resist stretching. The cloth appears thinner and less structured.</p><figure id="1ce0c3c3-e20a-806a-be6f-d4da1505a458" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2014.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2014.png"/></a></figure><p id="1ce0c3c3-e20a-80f1-bc01-eb8cd20960de" class="">
+	</p><p id="1ce0c3c3-e20a-8009-9a7e-c7e6aee0f4f3" class=""><strong>High ks </strong></p><p id="1ce0c3c3-e20a-8025-89fc-deeb4243852d" class="">A very high spring constant makes the cloth extremely rigid. It doesn’t drape smoothly — instead, it preserves a lot of its original rectangular shape, showing visible tension along the edges and fewer folds. The cloth appears tight and firm, almost shell-like.</p><div id="1ce0c3c3-e20a-804d-b4ee-f21fa81b3199" class="column-list"><div id="1ce0c3c3-e20a-8065-a329-c4ff2434dee2" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-80de-9b09-fbc472cdbff3" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2015.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2015.png"/></a><figcaption>50000N/m</figcaption></figure></div><div id="1ce0c3c3-e20a-8036-8267-c8c0d1316bd8" style="width:50%" class="column"><figure id="1ce0c3c3-e20a-80a5-af01-c47cc92117d4" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2016.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/image%2016.png"/></a><figcaption>100000N/m</figcaption></figure></div></div><h3 id="1ce0c3c3-e20a-80b0-a016-fa7f3e9bb048" class="">Plane simulation</h3><figure id="1ce0c3c3-e20a-80a2-9af1-c5d55749d14c" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_5.03.13_AM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_5.03.13_AM.png"/></a></figure><p id="1ce0c3c3-e20a-8079-bc32-c1e8a1c9a863" class="">In the plane simulation, the cloth falls downward and gently lands on a flat surface. With friction and damping in place, it spreads out evenly and stays above the surface without clipping or bouncing indefinitely. The contact appears smooth, and the shading highlights its geometry clearly. I also experimented with shader settings to give the cloth a colorful, artistic appearance.</p><h1 id="1cf0c3c3-e20a-80c6-a830-d13d7c5d84fa" class="">Part 4: Handling self-collisions</h1><h3 id="1cf0c3c3-e20a-80a5-ba8f-ffa5dc46ca90" class="">Self-Collision Implementation</h3><p id="1cf0c3c3-e20a-803b-a0d2-ca55fb123eaf" class="">Without self-collision, the cloth would just pass through itself when folding — a common issue in poorly simulated cloth. To fix this, I implemented a <strong>spatial hashing system</strong> to efficiently detect and resolve close-range collisions between different parts of the cloth.</p><p id="1cf0c3c3-e20a-8074-81f5-fc1c5f102ba7" class=""><strong>Spatial Hashing</strong></p><p id="1cf0c3c3-e20a-805a-9bae-f1806520a52f" class="">In <code>hash_position()</code>, I divided the 3D space into virtual grid cells based on cloth dimensions and resolution. Each point mass is assigned to a grid cell, hashed using a combination of x, y, and z indices. This reduces collision checks from <code>O(n²)</code> to about <code>O(n)</code> by only checking point masses within the same spatial bin.</p><p id="1cf0c3c3-e20a-80fa-8dc0-dd7d2d6d815e" class=""><strong>Building the Hash Map</strong></p><p id="1cf0c3c3-e20a-80c9-b06c-e42949957fab" class="">In <code>build_spatial_map()</code>, I populated the map from the previous step with all point masses based on their current positions.</p><p id="1cf0c3c3-e20a-80ca-a8f3-c64c47e17342" class=""><strong>Resolving Self-Collisions</strong></p><p id="1cf0c3c3-e20a-8093-bae9-feb60f268ef2" class="">In <code>self_collide()</code>, I looped through all the point masses in a cell and calculated the distance between the target mass and each neighbor. If they&#x27;re closer than <code>2 * thickness</code>, I compute a correction vector to push them apart. The final correction is averaged and scaled down by <code>1 / simulation_steps</code> to avoid unstable behavior. This allows the cloth to fold naturally without clipping through itself.</p><p id="1cf0c3c3-e20a-80bd-b308-df85a04e2802" class="">Finally, I added a call to <code>build_spatial_map()</code> and <code>self_collide()</code> inside <code>Cloth::simulate()</code> right after Verlet integration but before external collisions.</p><h3 id="1cf0c3c3-e20a-803b-a2be-fc27120c52b2" class="">Initial Collision</h3><p id="1cf0c3c3-e20a-80d1-a16f-f6ab0c35edb8" class="">The cloth first begins to fall and makes contact with itself as it folds inward near the center.</p><figure id="1cf0c3c3-e20a-8092-a407-e80f0f5f7589" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_6.59.34_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_6.59.34_PM.png"/></a></figure><h3 id="1cf0c3c3-e20a-80c5-8245-d5d4ed5e096c" class="">Mid-Fall Overlap</h3><p id="1cf0c3c3-e20a-80b4-b76d-e7286105c8dd" class="">Several layers of the cloth now stack and crumple against each other, but thanks to self-collision, they <strong>repel properly</strong> instead of phasing through.</p><figure id="1cf0c3c3-e20a-8070-8b37-cf3e97c6ef4b" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.12_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.12_PM.png"/></a></figure><h3 id="1cf0c3c3-e20a-807e-8a72-c5a61e8c9ab2" class="">Final Resting State</h3><p id="1cf0c3c3-e20a-8066-8ef6-e397c052f4a5" class="">The cloth has settled into a natural-looking crumple. Some slight bounce is still visible due to lack of friction damping, but no clipping or tunneling occurs.</p><figure id="1cf0c3c3-e20a-80de-a59c-ec48bbcce44b" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.32_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.32_PM.png"/></a></figure><h3 id="1cf0c3c3-e20a-805c-81c2-f8d31dbab70b" class="">Parameter Variation Results</h3><h3 id="1cf0c3c3-e20a-8094-be44-df8ab98f8ffa" class=""><strong>Density</strong></h3><p id="1cf0c3c3-e20a-805c-9f42-f6325a820397" class=""><strong>Low density</strong> (5g/cm^2): Cloth falls slowly, crumples softly, and self-collisions look smooth.<div class="indented"><figure id="1cf0c3c3-e20a-80ba-ab9a-d8fd22e73331" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.05.30_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.05.30_PM.png"/></a></figure></div></p><p id="1cf0c3c3-e20a-80ea-b4de-ea05fd352e3e" class="">
+	</p><p id="1cf0c3c3-e20a-80c8-8cce-f54ab6e43893" class=""><strong>High density</strong> (30g/cm^2): Cloth falls faster and harder; self-collisions become more intense and produce tighter folds.<div class="indented"><figure id="1cf0c3c3-e20a-800f-a1be-d4979aa4d01c" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.09.54_PM.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.09.54_PM.png"/></a></figure></div></p><p id="1cf0c3c3-e20a-80c3-b233-c8027765c2f0" class="">
+	</p><h3 id="1cf0c3c3-e20a-800b-b81d-dff23e432e45" class=""><strong>Spring Constant (ks)</strong></h3><p id="1cf0c3c3-e20a-8016-88e6-e4332dc85b27" class=""><strong>Low ks</strong> (500N/m): Cloth stretches more, leading to larger overlaps. Self-collisions have more slack.<div class="indented"><figure id="1cf0c3c3-e20a-8049-9611-e4a8dd3e5571" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.11.21_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.11.21_PM.png"/></a></figure></div></p><p id="1cf0c3c3-e20a-804e-becc-da152876cdba" class=""><div class="indented"><p id="1cf0c3c3-e20a-80a3-bedb-dc1330cc5238" class=""><strong>High ks</strong> (50000N/m): Cloth is stiff, so folds are tighter and collisions resolve more sharply.</p><figure id="1cf0c3c3-e20a-8003-a55d-e42d8b20ffa9" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.11.32_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.11.32_PM.png"/></a></figure></div></p><h1 id="1cf0c3c3-e20a-80c2-9b20-e6e109edb78a" class="">Part 5: Shaders</h1><p id="1cf0c3c3-e20a-802b-a133-c09dea19a202" class="">A shader program is a small GPU-executed program that controls the appearance of 3D objects during rendering. It’s composed of two main stages: Vertex Shader and Fragment Shader. Vertex shader transforms each vertex’s position from model space to screen space, and passes along data like normals, UV coordinates, and world-space positions to the fragment shader. And fragment shader determines the final color of each pixel (or fragment) using data interpolated from the vertex shader and applies lighting models or texture sampling.</p><p id="1cf0c3c3-e20a-8098-a16e-c9d65d8bd4d4" class="">By working together, vertex and fragment shaders simulate lighting, shading, and material effects in real-time, enabling expressive, physically-inspired visuals.</p><h3 id="1cf0c3c3-e20a-8020-b666-cc99ffad6904" class="">Blinn-Phong Shading Model</h3><p id="1cf0c3c3-e20a-8085-bc77-d9ebf4ac9043" class="">The <strong>Blinn-Phong shading model</strong> simulates how light interacts with a surface by combining three components:</p><ul id="1cf0c3c3-e20a-8031-b96d-f77843667657" class="bulleted-list"><li style="list-style-type:disc"><strong>Ambient</strong>: Simulates indirect light that’s always present.</li></ul><ul id="1cf0c3c3-e20a-8078-bcca-c9389063f852" class="bulleted-list"><li style="list-style-type:disc"><strong>Diffuse</strong>: Simulates light scattered equally in all directions, strongest when the surface directly faces the light.</li></ul><ul id="1cf0c3c3-e20a-80bc-a227-c214119b2135" class="bulleted-list"><li style="list-style-type:disc"><strong>Specular</strong>: Simulates mirror-like highlights where light reflects sharply, based on the viewer&#x27;s angle.</li></ul><p id="1cf0c3c3-e20a-8047-87f4-cfff462f5bd3" class="">Together, they produce a stylized approximation of realistic lighting that works well for many materials.</p><p id="1cf0c3c3-e20a-800c-a9d1-ce692de7d105" class="">Screenshots:</p><p id="1cf0c3c3-e20a-80b1-9628-cf890623d111" class=""><strong>Ambient only</strong></p><figure id="1cf0c3c3-e20a-8007-95ea-ec6180cbef14" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.40.13_PM.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.40.13_PM.png"/></a></figure><p id="1cf0c3c3-e20a-80fe-b501-d687ff30fb4f" class=""><strong>Diffuse only</strong></p><figure id="1cf0c3c3-e20a-80da-8a95-ebab88d0e2f0" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.41.36_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.41.36_PM.png"/></a></figure><p id="1cf0c3c3-e20a-80c1-9c65-cdf5e195f870" class=""><strong>Specular only</strong></p><figure id="1cf0c3c3-e20a-8066-913c-d487fa9f92d5" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.44.09_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.44.09_PM.png"/></a></figure><p id="1cf0c3c3-e20a-80ee-9b44-d384e19f02b1" class=""><strong>Full Blinn-Phong result</strong></p><figure id="1cf0c3c3-e20a-805c-87fe-f635397a2d67" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.45.32_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.45.32_PM.png"/></a></figure><h3 id="1cf0c3c3-e20a-80cf-bb92-d0c577aaf578" class="">Texture Mapping with Custom Texture</h3><p id="1cf0c3c3-e20a-80c6-9b56-d0960236f7a2" class="">I replaced the default texture in <code>/textures/</code> with my own custom image from the game Wuthering Waves. Here&#x27;s the result rendered using my <strong>Texture.frag</strong> shader:</p><div id="1cf0c3c3-e20a-8074-9a14-ee8559040b7f" class="column-list"><div id="1cf0c3c3-e20a-8038-86dd-d18af1416d73" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-8009-b35d-e4c5e355bde2" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.55.18_PM.png"><img style="width:331.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.55.18_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-8058-be32-d7b65ac37dc2" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80ce-a005-e2969c67fbcd" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.55.33_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_3.55.33_PM.png"/></a></figure></div></div><h3 id="1cf0c3c3-e20a-8035-8d5a-e8840470000d" class="">Bump vs. Displacement Mapping</h3><p id="1cf0c3c3-e20a-8040-b900-c49664e4532e" class="">I applied the same heightmap texture to both bump and displacement shaders and rendered both on a sphere.</p><p id="1cf0c3c3-e20a-80be-9943-ebf3efe98374" class=""><strong>Bump Mapping on Cloth</strong></p><figure id="1cf0c3c3-e20a-80db-8abe-c8d946d9edc6" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.10.19_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.10.19_PM.png"/></a></figure><p id="1cf0c3c3-e20a-8085-9dcf-d316e9a15a3d" class=""><strong>Bump Mapping on Sphere</strong></p><figure id="1cf0c3c3-e20a-80bf-9750-e49dcb67a0dd" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.11.33_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.11.33_PM.png"/></a></figure><p id="1cf0c3c3-e20a-80ef-b018-d8356382e48b" class=""><strong>Displacement Mapping on Sphere</strong></p><figure id="1cf0c3c3-e20a-80bf-a367-d3b4949f99de" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.11.42_PM.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.11.42_PM.png"/></a></figure><p id="1cf0c3c3-e20a-8052-a219-f9bde09eea34" class=""><strong>Comparison:</strong></p><ul id="1cf0c3c3-e20a-8028-bede-cf07afad04db" class="bulleted-list"><li style="list-style-type:disc">Bump Mapping modifies the surface normals to give the illusion of depth, but the geometry stays flat.</li></ul><ul id="1cf0c3c3-e20a-80a6-815b-de0759ad2d51" class="bulleted-list"><li style="list-style-type:disc">Displacement Mapping actually moves the geometry vertices based on the heightmap, creating real physical bumps.</li></ul><p id="1cf0c3c3-e20a-808b-8500-f3eef65aa982" class=""><strong>Low resolution mesh (</strong><code><strong>-o 16 -a 16</strong></code><strong>):</strong></p><div id="1cf0c3c3-e20a-8089-989b-de6265205683" class="column-list"><div id="1cf0c3c3-e20a-80b9-b4d4-d4ec2dedc52e" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80c1-bda1-e0424bf43e2d" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.12.34_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.12.34_PM.png"/></a><figcaption>bump mapping</figcaption></figure></div><div id="1cf0c3c3-e20a-8072-88f1-ee72f09f1f7e" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80c6-96ec-cb85d84ab575" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.12.53_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.12.53_PM.png"/></a><figcaption>displacement mapping</figcaption></figure></div></div><p id="1cf0c3c3-e20a-80f7-85bd-e0ef938da9ba" class=""><strong>High resolution mesh (</strong><code><strong>-o 128 -a 128</strong></code><strong>):</strong></p><div id="1cf0c3c3-e20a-8034-888d-fb090094ee3e" class="column-list"><div id="1cf0c3c3-e20a-8086-aca1-c3940ce00bac" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80bf-af5c-f2e7fdb332fc" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.16.18_PM.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.16.18_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-8092-ba23-fcd18751c282" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-808b-935b-d127f643277a" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.16.24_PM.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.16.24_PM.png"/></a></figure></div></div><p id="1cf0c3c3-e20a-8067-a639-e917fcfa8b36" class="">For bump mapping, the higher resolution is similar to the lower resolution render.<br/>But for displacement mapping, with low-resolution meshes, displacement appears less detailed or chunky. With high-resolution meshes, displacement creates much more realistic bumps since more vertices can move.<br/></p><h3 id="1cf0c3c3-e20a-8000-8deb-e139a2409ffd" class="">Mirror Shader</h3><p id="1cf0c3c3-e20a-8011-8f2c-ccb219924e9c" class="">I implemented the mirror material using environment-mapped reflections. The reflection direction is computed by reflecting the camera’s view direction across the surface normal and sampling a cubemap.</p><p id="1cf0c3c3-e20a-80ee-acbe-d7bd45b97b98" class=""><strong>Mirror Shader on Cloth</strong></p><figure id="1cf0c3c3-e20a-80fa-aecb-c57ea36b0f33" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.20.14_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.20.14_PM.png"/></a></figure><p id="1cf0c3c3-e20a-80df-aed5-e3b15da6da6c" class=""><strong>Mirror Shader on Sphere</strong></p><figure id="1cf0c3c3-e20a-80da-ade7-d5485071929b" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.20.28_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.20.28_PM.png"/></a></figure><h3 id="1cf0c3c3-e20a-801a-89ad-fbdcadba361c" class="">Custom Shader</h3><p id="1cf0c3c3-e20a-80ae-840e-d70a56d81f69" class="">For my custom shader, I created a liquid-like reflective shader that simulates rippling water using the environment-mapped reflections.</p><p id="1cf0c3c3-e20a-80bb-90ab-fcb5b62518e4" class="">I combined techniques from multiple parts of the assignment specifically, environment-mapped reflections and bump mapping and stylized them to give a shimmery, water-like surface.</p><p id="1cf0c3c3-e20a-8012-9f6d-e340fe984f07" class="">I constructed a fake wave pattern using sinusoidal variations over the UV coordinates, which simulate surface ripples. Instead of displacing geometry, I modified the fragment normals to create the illusion of movement across the surface. This was done by generating a bump-like normal in tangent space, converting it to world space using a TBN matrix, and then using it for reflections.</p><p id="1cf0c3c3-e20a-804b-8a4d-f6c240fd606d" class="">The final color comes from sampling an environment cubemap in the reflected direction, simulating how a liquid-like surface reflects the surroundings. I blended this with a blue base tint and added a subtle shimmer effect by oscillating colors with sine waves over the UV space.</p><p id="1cf0c3c3-e20a-807b-a117-ec6c561dd67a" class="">The result looks fluid and glossy almost like the surface of an ocean or gel or jelly material, and it reacts beautifully to the environment lighting and camera movement.</p><p id="1cf0c3c3-e20a-80fd-8adc-e518ef9b265f" class="">
+	</p><figure id="1cf0c3c3-e20a-8045-8573-ddcbbaea14a4" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.59_PM.png"><img style="width:480px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.59_PM.png"/></a></figure><div id="1cf0c3c3-e20a-80dd-984b-d95717249582" class="column-list"><div id="1cf0c3c3-e20a-804d-bb1d-e6962651a8e4" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-808e-a956-c9633d73dd30" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.13_PM.png"><img style="width:482.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.13_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-8025-ac06-df8f5c48885f" style="width:50.000000000000014%" class="column"><figure id="1cf0c3c3-e20a-8012-8bb6-d3c5410d597f" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.42_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.42_PM.png"/></a></figure></div></div><div id="1cf0c3c3-e20a-800b-8016-f411e0ae9841" class="column-list"><div id="1cf0c3c3-e20a-8075-80ea-eda66c7ab044" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80f4-879b-f7386f02b389" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.34_PM.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.34_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-8098-b741-f1457123043c" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-8082-87a7-d6f5a0d9c0eb" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.48_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.54.48_PM.png"/></a></figure></div></div><div id="1cf0c3c3-e20a-8065-8df4-ee0696497ff6" class="column-list"><div id="1cf0c3c3-e20a-80f4-8ec8-e6ea69e6d8e9" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-808b-9497-dce24973792f" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.55.17_PM.png"><img style="width:709.984375px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.55.17_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-80d1-a63a-ee38f410ef0c" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80f7-a04f-f3e58b66b52f" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.55.34_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_1.55.34_PM.png"/></a></figure></div></div><h2 id="1cf0c3c3-e20a-80ad-af04-f0ec0cb161a5" class="">Extra Credit</h2><h3 id="1cf0c3c3-e20a-803d-aeae-e6ec4dfe0dad" class="">Add wind (which is a spatially varying force)</h3><p id="1cf0c3c3-e20a-801e-8dc7-db413bea2d90" class="">To simulate realistic cloth movement under external environmental forces, I implemented wind as a spatially varying force acting on the cloth. Instead of a uniform wind applied to each point mass, I modeled the wind as varying based on the vertical (y) position of each triangle on the cloth. This creates a much more dynamic and natural look, where the cloth appears to flutter and wave more toward the top and less near the base—mimicking real-world airflow effects.</p><p id="1cf0c3c3-e20a-802e-ae61-cf82cdd282ca" class="">I modified the <code>Cloth::simulate</code> method in <code>cloth.cpp</code> by looping through each triangle in the cloth mesh. For each triangle:</p><ul id="1cf0c3c3-e20a-8012-9a09-f367efa7c8ed" class="bulleted-list"><li style="list-style-type:disc">I <strong>computed its average center position</strong> by averaging its three point masses.</li></ul><ul id="1cf0c3c3-e20a-80ce-8377-f1358b010d3c" class="bulleted-list"><li style="list-style-type:disc">I calculated a <strong>normal vector</strong> for the triangle via the cross product of its two edge vectors.</li></ul><ul id="1cf0c3c3-e20a-80ca-aec3-c73616258ce4" class="bulleted-list"><li style="list-style-type:disc">I applied a <strong>wind force</strong> that varies with the vertical <code>y</code> position of the triangle’s center using a <code>sin()</code> function:<p id="1cf0c3c3-e20a-80e5-9eaa-cbcc9d97f8c5" class=""><code>wind_strength = sin(center.y * 5.0)</code></p></li></ul><ul id="1cf0c3c3-e20a-80a7-87ed-eb6065706b2b" class="bulleted-list"><li style="list-style-type:disc">The wind force was then projected onto the triangle’s surface normal using the dot product and applied <strong>equally to all three vertices</strong> of the triangle.</li></ul><p id="1cf0c3c3-e20a-800d-9710-d67ff63deb96" class="">This gives a spatially varying effect where <strong>wind strength fluctuates across the cloth</strong></p><div id="1cf0c3c3-e20a-80ed-a2b1-e2a90c81c212" class="column-list"><div id="1cf0c3c3-e20a-80e4-89ac-ffd870535d7a" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-802d-b5da-daa538cd8135" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.12.34_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.12.34_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-8044-9ebb-df64d4783098" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-805c-b578-d84a0aac7023" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.12.40_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.12.40_PM.png"/></a></figure></div></div><div id="1cf0c3c3-e20a-8074-bc64-fa383d305975" class="column-list"><div id="1cf0c3c3-e20a-80f9-a6a8-ceaff190e28d" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80ce-bdf9-cf7e03b7a61c" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/33809741-519d-4cbe-9ec8-35df0dc1ab31.png"><img style="width:482.6546003016591px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/33809741-519d-4cbe-9ec8-35df0dc1ab31.png"/></a></figure><p id="1cf0c3c3-e20a-80d0-b1f4-d797201f3452" class="">
+	</p><figure id="1cf0c3c3-e20a-80ad-bfab-e01ee2347a44" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.28.05_PM.png"><img style="width:331.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.28.05_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-800f-8944-fbfc449a070f" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-8029-9877-f52285d7f6ed" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.25.00_PM.png"><img style="width:710px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.25.00_PM.png"/></a></figure><p id="1cf0c3c3-e20a-808e-b69b-c9b7c2335db5" class="">
+	</p><figure id="1cf0c3c3-e20a-80b9-8c64-f2b621194a9a" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.29.08_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_2.29.08_PM.png"/></a></figure></div></div><div id="1cf0c3c3-e20a-804c-af46-d511eb47f303" class="column-list"><div id="1cf0c3c3-e20a-8042-b7cf-ed1abc40dccd" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-8061-9e42-f91c67d87a9f" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/923a5861-fc24-4215-8414-051f0bf4dd6c.png"><img style="width:399.40865892291447px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/923a5861-fc24-4215-8414-051f0bf4dd6c.png"/></a></figure></div><div id="1cf0c3c3-e20a-804b-b888-efce76912d0f" style="width:50%" class="column"><figure id="1cf0c3c3-e20a-80ad-b0b2-f60d1ac4a718" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/792ab5f0-5f95-4f7b-bcb5-d194c8ab7f5e.png"><img style="width:398.2146652497343px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/792ab5f0-5f95-4f7b-bcb5-d194c8ab7f5e.png"/></a></figure></div></div><h3 id="1cf0c3c3-e20a-80d8-ba47-dc580b7a8385" class="">Moving the Sphere with the GUI</h3><p id="1cf0c3c3-e20a-808b-b1f4-c9a076337afb" class="">To add interactivity to the simulation, I implemented the ability to move the collision sphere in real time using the GUI. This allows users to drag the sphere around the scene and watch the cloth respond to new collision positions dynamically.</p><p id="1cf0c3c3-e20a-8012-8588-dc6be47bda9e" class="">To implement this, first in <code>ClothSimulator::initGUI()</code>, I added a new section titled <code>&quot;Sphere Position&quot;</code> and three sliders for <code>x</code>, <code>y</code>, and <code>z</code> values. These sliders directly control the <code>origin</code> of the first <code>Sphere</code> object in the scene:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1cf0c3c3-e20a-80d9-8d1d-e0369feb62fa" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">FloatBox&lt;double&gt;* sx = new FloatBox&lt;double&gt;(panel);
+	sx-&gt;setValue(((Sphere *)collision_objects-&gt;at(0))-&gt;origin.x);
+	sx-&gt;setCallback([sphere](float value) { sphere-&gt;origin.x = value; });
+	</code></pre><p id="1cf0c3c3-e20a-8088-80fb-dc40dad0e794" class="">I repeated this for <code>y</code> and <code>z</code>.</p><p id="1cf0c3c3-e20a-80da-9163-f1b338649aca" class="">I added a <code>screen-&gt;redraw()</code> call in each slider callback to refresh the scene immediately when the user moves the sliders.</p><p id="1cf0c3c3-e20a-808a-bbba-f6b463727fdd" class="">Since the <code>Sphere::collide()</code> method uses <code>origin</code> to detect collisions, updating <code>origin</code> automatically changes the collision behavior of the sphere and the cloth reacts to the sphere moving in real time.</p><ul id="1cf0c3c3-e20a-80b1-896b-e069cd47ed6b" class="bulleted-list"><li style="list-style-type:disc">Moving the sphere horizontally under the cloth from x=0.5 to 0.7</li></ul><div id="1cf0c3c3-e20a-80f7-8ef1-d7a438daf300" class="column-list"><div id="1cf0c3c3-e20a-809a-bf8d-c35b03082b87" style="width:33.333333333333336%" class="column"><figure id="1cf0c3c3-e20a-809e-9a90-fddeb4517d77" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.23.38_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.23.38_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-8013-b257-f05331635e32" style="width:33.333333333333336%" class="column"><figure id="1cf0c3c3-e20a-80a8-9ae4-d9f040725a5e" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/4d37341f-0b73-4be8-8dd1-baeec92651fd.png"><img style="width:396.01272534464476px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/4d37341f-0b73-4be8-8dd1-baeec92651fd.png"/></a></figure></div><div id="1cf0c3c3-e20a-80d5-b802-c7b691762407" style="width:33.33333333333333%" class="column"><figure id="1cf0c3c3-e20a-80e5-9661-c5e443d4c7b8" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/b84c8f5a-47c0-4020-bd1c-fee9716b56aa.png"><img style="width:404.8562300319489px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/b84c8f5a-47c0-4020-bd1c-fee9716b56aa.png"/></a></figure></div></div><ul id="1cf0c3c3-e20a-80e0-95a3-f77fbd5508d5" class="bulleted-list"><li style="list-style-type:disc">Moving cloth vertically from y = 0.2 to -0.2</li></ul><div id="1cf0c3c3-e20a-804e-b5d7-f74fc23e5395" class="column-list"><div id="1cf0c3c3-e20a-80b4-b46e-c43562ef2559" style="width:33.33333333333334%" class="column"><figure id="1cf0c3c3-e20a-80bf-a7f4-d8a47a505863" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.27.35_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.27.35_PM.png"/></a></figure></div><div id="1cf0c3c3-e20a-803d-b803-f71bb1188e61" style="width:33.33333333333333%" class="column"><figure id="1cf0c3c3-e20a-806f-80d5-f53cfb9737e6" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/3e73a138-2340-43f2-a92a-7b109f9dd743.png"><img style="width:402.4707135250267px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/3e73a138-2340-43f2-a92a-7b109f9dd743.png"/></a></figure></div><div id="1cf0c3c3-e20a-8058-8bc6-e6d1de97a61f" style="width:33.333333333333336%" class="column"><figure id="1cf0c3c3-e20a-809c-9cfc-ea28d4be9961" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.27.51_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_4.27.51_PM.png"/></a></figure></div></div><p id="1d00c3c3-e20a-80e8-860d-c14c8a4e4a37" class="">
+	</p><h3 id="1cf0c3c3-e20a-807e-b8e2-ebee72cff291" class="">Wind direction control</h3><p id="1d00c3c3-e20a-8098-9851-ca5271a7a606" class="">To extend the spatially varying wind force with user control, I added a GUI feature that lets users dynamically change the wind direction. I implemented this by:</p><ul id="1d00c3c3-e20a-808b-9540-d089d8f18a10" class="bulleted-list"><li style="list-style-type:disc">Adding a <code>wind_direction</code> member to the <code>ClothSimulator</code> class and creating GUI sliders (FloatBoxes) for its x, y, and z components.</li></ul><ul id="1d00c3c3-e20a-80eb-8cf3-e61dc1830267" class="bulleted-list"><li style="list-style-type:disc">In the <code>drawContents()</code> function, this wind direction vector is passed into the cloth&#x27;s <code>simulate()</code> function as an additional parameter. </li></ul><ul id="1d00c3c3-e20a-8004-80dc-faea272278f0" class="bulleted-list"><li style="list-style-type:disc">Within <code>Cloth::simulate()</code>, I modified the wind force computation to use this direction. For each triangle on the cloth, I computed a center point and scaled the wind strength using a sine function of the triangle&#x27;s height to achieve spatial variation. </li></ul><ul id="1d00c3c3-e20a-805a-8206-ed0f7eda7078" class="bulleted-list"><li style="list-style-type:disc">I then projected the wind vector onto the triangle’s surface normal to simulate realistic aerodynamic force, distributing the resulting force evenly to the triangle’s point masses. </li></ul><p id="1d00c3c3-e20a-8027-a538-dd83262a55f6" class="">This allows real-time control of wind behavior and users can observe how the cloth reacts to different directional forces, making the simulation more interactive.</p><p id="1d00c3c3-e20a-80ef-8012-e6a3bc3af863" class=""><strong>Screenshots:<br/><br/></strong>At first the wind direction is the default x=1 direction, but then by adding another wind force at y=3, it blows back in a diagonal direction corresponding to both forces.</p><div id="1d00c3c3-e20a-802a-83fa-ef650df1997f" class="column-list"><div id="1d00c3c3-e20a-809f-b5a9-eef23c0f43f7" style="width:50%" class="column"><figure id="1d00c3c3-e20a-80ad-91ad-eb111cb18231" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/303de4af-5dcb-49fd-a265-82220f18fc9b.png"><img style="width:396.28691983122366px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/303de4af-5dcb-49fd-a265-82220f18fc9b.png"/></a></figure></div><div id="1d00c3c3-e20a-801f-860c-d0cc95f17f5c" style="width:50%" class="column"><figure id="1d00c3c3-e20a-8074-b902-c12d6f0aa1e7" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/83a0f2b2-9463-4c01-ab85-b395538fd643.png"><img style="width:399.83086680761096px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/83a0f2b2-9463-4c01-ab85-b395538fd643.png"/></a></figure></div></div><h3 id="1cf0c3c3-e20a-80d8-acdd-f6aec0263248" class="">Additional 3d primitive - Cube collision</h3><p id="1d00c3c3-e20a-80f0-b4c3-c3449bcb60f5" class="">I decided to add a cube for the additional 3d primitive task. And to implement collision between the cloth and an axis-aligned cube, I created a new <code>Cube</code> class that inherits from <code>CollisionObject</code>, similar to the existing <code>Plane</code> and <code>Sphere</code> classes. The cube is represented as an axis-aligned bounding box (AABB) using two corners: <code>min_corner</code> and <code>max_corner</code>, which define the lower and upper bounds in 3D space.</p><p id="1d00c3c3-e20a-8086-9633-ff6221038d85" class=""><strong>Collision Detection</strong></p><p id="1d00c3c3-e20a-80ef-b74e-ce24012618a5" class="">The collision logic was implemented in <code>Cube::collide(PointMass &amp;pm)</code>. For each point mass in the cloth, we check whether it lies <strong>inside the cube&#x27;s AABB</strong> by verifying:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d00c3c3-e20a-804a-8d98-f521e47ff698" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">if (pos.x &gt;= min_corner.x &amp;&amp; pos.x &lt;= max_corner.x &amp;&amp;
+		pos.y &gt;= min_corner.y &amp;&amp; pos.y &lt;= max_corner.y &amp;&amp;
+		pos.z &gt;= min_corner.z &amp;&amp; pos.z &lt;= max_corner.z)
+	</code></pre><p id="1d00c3c3-e20a-80d1-a41d-dbeb2e7ed38c" class="">If a point mass is found inside the cube, we project it back to the nearest face it came from, using its <code>last_position</code>. I calculate a corrected position slightly offset from the cube surface by a small constant <code>SURFACE_OFFSET</code> to prevent it from re-entering the cube in the next step. This offset is applied in the direction opposite to the axis of penetration.</p><p id="1d00c3c3-e20a-803f-90e2-de7a786be8a3" class="">I then apply a <strong>friction factor</strong> to control how much the point mass &quot;slides&quot; along the surface rather than sticking completely:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d00c3c3-e20a-8052-912a-f821c3a45291" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">Vector3D correction = corrected - last;
+	pm.position = last + (1 - friction) * correction;
+	</code></pre><p id="1d00c3c3-e20a-8011-a0c2-c88f58af6d06" class="">This gives a natural response where the cloth can slide off the cube depending on its previous direction of motion and the friction value.</p><p id="1d00c3c3-e20a-80fe-be1b-c07254dc1173" class="">For rendering the cube, I implemented a <code>draw_cube</code> function in <code>cube_drawing.cpp</code> that draws a cube using 12 triangles (two per face). This is called from <code>Cube::render()</code>, which passes the cube&#x27;s corners into the shader for drawing.</p><p id="1d00c3c3-e20a-801f-905f-c017059876e9" class="">Despite the cube collision working correctly, the cloth occasionally slightly clips into the cube&#x27;s surface, especially near edges or when moving at high velocity. I read that apparently this is a common issue with discrete collision handling and limited resolution.</p><p id="1d00c3c3-e20a-80d9-a15b-d5c36b311c5f" class="">To mitigate this, I applied a small surface offset when repositioning the point mass after collision. I tried adjusting surface offset, and maybe setting it to match the cloth thickness would help, but I didn’t have time to fully test that.</p><div id="1d00c3c3-e20a-809d-b1ca-d6e20231fa61" class="column-list"><div id="1d00c3c3-e20a-80bf-8c1d-e6e28d0ce56a" style="width:50%" class="column"><figure id="1d00c3c3-e20a-80f7-a7b5-c7a0dfde37f8" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_10.53.19_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-08_at_10.53.19_PM.png"/></a></figure></div><div id="1d00c3c3-e20a-80d0-8d34-d6a3242f5262" style="width:50%" class="column"><figure id="1d00c3c3-e20a-8066-9ad1-cfe089f823d2" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/a6522ad9-777e-42dd-976b-5a4cefecfd11.png"><img style="width:393.9495798319328px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/a6522ad9-777e-42dd-976b-5a4cefecfd11.png"/></a></figure></div></div><p id="1d00c3c3-e20a-809c-bb3e-c1910b964820" class="">
+	</p><h3 id="1d00c3c3-e20a-80d2-abcb-c48ddec8da9c" class="">Robust Self-Collisions Using AABB Hierarchy</h3><p id="1d00c3c3-e20a-80d4-80b7-e91d657869a8" class="">This feature replaces the default self-collision system, which uses spatial hashing, with a more robust Axis-Aligned Bounding Box (AABB) hierarchy. Instead of checking collisions based on hash bins, this method wraps each <code>PointMass</code> in a small bounding box and performs overlap tests between them.</p><p id="1d00c3c3-e20a-8084-8249-fc55bde08b41" class="">I defined a simple <code>AABB</code> struct to encapsulate the bounds of each point mass, using its position ± thickness. For every point mass during self-collision, I computed its bounding box and compared it to the AABBs of all other point masses. If two boxes intersect and the centers are closer than <code>2 * thickness</code>, I applied a collision response by pushing them apart.</p><p id="1d00c3c3-e20a-80d6-ac25-e43ae918b9bc" class="">This logic replaces the spatial hashing approach in <code>self_collide()</code> and does not rely on hash bins or discrete cell sizes, eliminating issues caused by aliasing in hash collisions.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="1d00c3c3-e20a-801d-9318-f983be5d3a4c" class="code"><code class="language-C++" style="white-space:pre-wrap;word-break:break-all">struct AABB {
+	  Vector3D min;
+	  Vector3D max;
+	
+	  bool intersects(const AABB &amp;other) const {
+		return !(max.x &lt; other.min.x || min.x &gt; other.max.x ||
+				 max.y &lt; other.min.y || min.y &gt; other.max.y ||
+				 max.z &lt; other.min.z || min.z &gt; other.max.z);
+	  }
+	};
+	</code></pre><p id="1d00c3c3-e20a-80c2-bfb1-e9434dddef34" class="">The collision correction is still averaged across overlapping neighbors and scaled down by <code>1 / simulation_steps</code> to prevent jitter.</p><p id="1d00c3c3-e20a-80a8-825b-e9cce31dfbfe" class=""><strong>Comparison with Spatial Hashing</strong></p><table id="1d00c3c3-e20a-8032-9dd4-c9791a984382" class="simple-table"><tbody><tr id="1d00c3c3-e20a-80e8-997e-cc1bb76d8b2d"><td id="yiuJ" class=""></td><td id="b]v=" class="">Spatial Hashing</td><td id="u\nY" class="">AABB-Based Self-Collision</td></tr><tr id="1d00c3c3-e20a-80d9-acaf-e83fbfc202ee"><td id="yiuJ" class=""><strong>Accuracy</strong></td><td id="b]v=" class="">Approximate; uses bin membership</td><td id="u\nY" class="">Precise; based on real 3D box intersection</td></tr><tr id="1d00c3c3-e20a-8058-93df-ca48ec988090"><td id="yiuJ" class=""><strong>Performance</strong></td><td id="b]v=" class="">Fast, O(n) on average</td><td id="u\nY" class="">Slower, O(n²) without acceleration</td></tr><tr id="1d00c3c3-e20a-8048-ae26-c99fabf080fa"><td id="yiuJ" class=""><strong>Robustness</strong></td><td id="b]v=" class="">May miss near-collisions at bin edges</td><td id="u\nY" class="">Always detects overlaps</td></tr><tr id="1d00c3c3-e20a-8093-bf28-d474e5208a4b"><td id="yiuJ" class=""><strong>Implementation </strong></td><td id="b]v=" class="">Simple hashing function</td><td id="u\nY" class="">Requires bounding box math</td></tr></tbody></table><p id="1d00c3c3-e20a-80c9-88fc-c127e3685c67" class="">Spatial hashing:</p><div id="1d00c3c3-e20a-809c-b1fc-c75a6e466582" class="column-list"><div id="1d00c3c3-e20a-8033-badd-d43bc9090de6" style="width:50%" class="column"><figure id="1d00c3c3-e20a-8059-9d43-debf717cb23e" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.12_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.12_PM.png"/></a></figure></div><div id="1d00c3c3-e20a-80db-ba30-c444177613f7" style="width:50%" class="column"><figure id="1d00c3c3-e20a-80f8-86d1-e50b845bfafc" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.32_PM.png"><img style="width:709.9921875px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/Screenshot_2025-04-07_at_7.00.32_PM.png"/></a></figure></div></div><p id="1d00c3c3-e20a-8060-ab11-d4bcffa78440" class="">AABB:</p><div id="1d00c3c3-e20a-8095-8a4e-e6ff4a927efb" class="column-list"><div id="1d00c3c3-e20a-80c7-80fb-c6a6ed1cfb41" style="width:50%" class="column"><figure id="1d00c3c3-e20a-8095-89d3-e5bfd762e762" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/a011c099-1e71-419a-bf64-483ae4f37fda.png"><img style="width:397.6371308016878px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/a011c099-1e71-419a-bf64-483ae4f37fda.png"/></a></figure></div><div id="1d00c3c3-e20a-80e7-9e0d-c567d03b520d" style="width:50%" class="column"><figure id="1d00c3c3-e20a-8031-9488-ee267ed526e3" class="image"><a href="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/23131d6c-8f69-496c-95ed-fd586c47361e.png"><img style="width:398.8947927736451px" src="CS184%20HW4%20Writeup%201c70c3c3e20a80fea7f4e8021ac4a27e/23131d6c-8f69-496c-95ed-fd586c47361e.png"/></a></figure></div></div><p id="1d00c3c3-e20a-80ac-92a9-e8d5a251ddbc" class=""><strong>Before (Spatial Hashing):</strong></p><ul id="1d00c3c3-e20a-80be-ae37-e416a3bf1077" class="bulleted-list"><li style="list-style-type:disc">Cloth visibly clips through itself in dense or fast-moving simulations.</li></ul><ul id="1d00c3c3-e20a-800b-b7cd-e391f025cb6a" class="bulleted-list"><li style="list-style-type:disc">Collisions often missed when point masses cross bin boundaries.</li></ul><p id="1d00c3c3-e20a-8060-b302-e5783ec870a9" class=""><strong>After (AABB):</strong></p><ul id="1d00c3c3-e20a-80f3-871f-d9648dc0dc59" class="bulleted-list"><li style="list-style-type:disc">Cloth maintains volume better and avoids folding into itself.</li></ul><ul id="1d00c3c3-e20a-80a1-8759-c3b163d204b4" class="bulleted-list"><li style="list-style-type:disc">Overlapping regions correctly separate and bounce off each other.</li></ul><p id="1d00c3c3-e20a-804a-8915-cb1c5cda5097" class="">The current AABB implementation uses a brute-force O(n²) loop over all point masses. This is fine for small grids (~2500 points), but may slow down large simulations. Still, the accuracy benefit of the AABB method is clear, and it helps avoid artifacts common in hash-based approaches.</p><p id="1d00c3c3-e20a-80ec-8854-e09968d156b6" class="">
+	</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
